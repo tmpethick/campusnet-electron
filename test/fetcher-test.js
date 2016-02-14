@@ -1,6 +1,6 @@
-import {download, downloadFile, newestVersionExists} from '../src/downloader';
-import CampusNetClient from '../src/campusnet-client';
-import {xmlParser, getFilesFromXML, getModifiedDate} from '../src/xmlParser';
+import {download, downloadFile, newestVersionExists} from '../app/campusnet/downloader';
+import CampusNetClient from '../app/campusnet/campusnet-client';
+import {xmlParser, getFilesFromXML, getModifiedDate} from '../app/campusnet/xmlParser';
 import Promise from 'bluebird';
 import path from 'path';
 

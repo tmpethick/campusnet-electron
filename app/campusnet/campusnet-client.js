@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
-import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 import querystring from 'querystring';
-import bluebird from 'bluebird';
+import Bluebird from 'bluebird';
 import FormData from 'form-data';
 import mkdirp from 'mkdirp';
 import {xmlParser, getFilesFromXML} from './xmlParser';
 
-fetch.Promise = bluebird;
+fetch.Promise = Bluebird;
 
 const AUTH_URL = 'https://auth.dtu.dk/dtu/mobilapp.jsp';
 const BASE_URL = 'https://www.campusnet.dtu.dk/data/CurrentUser';
@@ -35,7 +35,7 @@ export default class CampusNetClient {
           // "<xml><BlockedAccess Ip="62.61.130.35" Reason="IpWrongUserCredentials" TryAgainIn="00:00:01.5312088"/></xml>"
           throw new Error('PA password not found');
         }
-        return true;
+        return this.PApassword;
       });
 
   }

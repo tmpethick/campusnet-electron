@@ -1,5 +1,3 @@
-'use babel';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Component from 'react-pure-render/component';
@@ -7,7 +5,7 @@ import {remote} from 'electron';
 
 const {dialog, app} = remote;
 
-export default class App extends Component {
+export default class Login extends Component {
   selectFolder = () => {
     let path = dialog.showSaveDialog({
       title: 'Create destination',
@@ -19,12 +17,10 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <p>Choose where to sync CampusNet to.</p>
         <input type="file" onClick={this.selectFolder}/>
       </div>
     );
   }
 }
-
-ReactDOM.render(<App />, document.querySelector("#app"));

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import osPath from 'path';
 import sanitizeFilename from 'sanitize-filename';
-import CampusNetClient from '../src/campusnet-client';
+import CampusNetClient from './campusnet-client';
 
 /**
  * requires `client` to be authenticated.

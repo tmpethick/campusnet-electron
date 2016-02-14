@@ -1,0 +1,16 @@
+// Icons
+$ionicons-font-path: "~ionicons/fonts";
+@import '~ionicons/scss/ionicons.scss';
+
+// Basic
+@import './Variables.scss';
+@import './Base.scss';
+@import './Form.scss';
+@import './Link.scss';
+@import './Typography.scss';
+@import './Utility.scss';
+@import './Layout.scss';
+
+// Components
+@import './Dropdown.scss';
+@import './Button.scss';

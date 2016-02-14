@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Electron + React + Sass</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script>
+    var bundlePath = '../build/bundle.js';
+    if(typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
+        bundlePath = 'http://localhost:8080/build/bundle.js';
+    }
+    var bundleScriptEl = document.createElement('script');
+    bundleScriptEl.src = bundlePath;
+    document.currentScript.parentNode.insertBefore(bundleScriptEl, document.currentScript);
+    document.currentScript.parentNode.removeChild(document.currentScript);
+    </script>
+</body>
+</html>
