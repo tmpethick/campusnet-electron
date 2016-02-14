@@ -1,0 +1,51 @@
+.dropdown {
+  position: relative;
+
+  .dropdown-button:after {
+    content: $ionicon-var-android-arrow-dropdown;
+    @extend .ion;
+    margin-left: 10px;
+    font-size: 0.8em;
+    position: relative;
+    top: -2px;
+  }
+
+  &-list {
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    overflow: hidden;
+    z-index: $dropdown;
+    text-align: left;
+    font-size: 1.2rem;
+
+    background: rgba(white,0.82);
+    border: 1px solid #DBDBDB;
+    box-shadow: 0px 1px 6px 0px rgba(0,0,0,0.12);
+    border-radius: 5px;
+
+    transition: all 0.2s ease 0s, visibility 0s linear 0.2s;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-5px);
+
+    &.open {
+      transition-delay: 0s;
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &-list-item a {
+    display: block;
+    padding: 8px 40px 8px 25px;
+    color: $color-secondary;
+
+    &:hover {
+      background-color: $color-primary;
+      color: white;
+    }
+  }
+}
