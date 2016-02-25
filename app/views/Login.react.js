@@ -37,7 +37,7 @@ class Login extends Component {
         if (success)
           this.context.router.push({
             pathname: '/preference',
-            query: { chooseFolder: true },
+            state: { chooseFolder: true },
           });
       });
     e.preventDefault();

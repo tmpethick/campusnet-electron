@@ -1,5 +1,8 @@
 
 .folder-picker-container {
+    display: block;
+    width: 100%;
+    font-size: 1.5rem;
     background: white;
     border: 1px dashed #CCC9C9;
     border-radius: 5px;
@@ -20,4 +23,8 @@
 .folder-picker-path {
     display: block;
     font-size: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 10px;
 }

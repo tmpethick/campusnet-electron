@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Component from 'react-pure-render/component';
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Flash extends Component {
   static PropTypes = {
@@ -12,13 +13,18 @@ class Flash extends Component {
   render() {
     return (
       <div>
-        {this.props.flash.map(flash => (
-          <div className="flash-container" key={flash.message}>
-            <div className={`flash flash-${flash.type}`}>
-              {flash.message}
-            </div>
-          </div>
-        ))}
+        <ReactCSSTransitionGroup 
+          transitionName="flash-container" 
+          transitionEnterTimeout={200} 
+          transitionLeaveTimeout={200}>
+            {this.props.flash.map(flash => (
+              <div className="flash-container" key={flash.id}>
+                <div className={`flash flash-${flash.type}`}>
+                  {flash.message}
+                </div>
+              </div>
+            ))}
+        </ReactCSSTransitionGroup>
       </div>
     );
   }

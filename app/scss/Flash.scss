@@ -8,6 +8,23 @@
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+
+    &-enter,
+    &-leave.flash-container-leave-active {      
+        opacity: 0;
+        transform: translateX(-50%) scale(0.8);
+    }
+
+    &-leave,
+    &-enter.flash-container-enter-active {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    &-enter.flash-container-enter-active,
+    &-leave.flash-container-leave-active {
+      transition: all 200ms ease-in;
+    }
 }
 
 .flash {
