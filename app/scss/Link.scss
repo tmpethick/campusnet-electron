@@ -1,7 +1,8 @@
 // Link
 // ––––––––––––––––––––––––––––––––––––––––––––––––––
 
-a {
+a, 
+.link {
   color: $color-primary;
   text-decoration: none;
   &:hover {
