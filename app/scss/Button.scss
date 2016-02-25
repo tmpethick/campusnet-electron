@@ -29,8 +29,6 @@ input[type='submit'] {
   text-transform: uppercase;
   white-space: nowrap;
 
-  margin-bottom: 1rem;
-
   &:hover,
   &:focus {
     background-color: $color-secondary;

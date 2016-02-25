@@ -6,12 +6,14 @@ import path from 'path';
 
 describe('CampusNet Client', function() {
 
+  /*
   it('should login fetcher', function(done) {
     let client = new CampusNetClient('s144448', 'wBA49deM');
     client.login()
       .then(() => download(client))
       .then(() => done());
   });
+  */
 
   // it('should download one file', function(done) {
   //   let client = new CampusNetClient('s144448', 'wBA49deM');

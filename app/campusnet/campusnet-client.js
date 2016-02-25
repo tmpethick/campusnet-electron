@@ -6,6 +6,7 @@ import Bluebird from 'bluebird';
 import FormData from 'form-data';
 import mkdirp from 'mkdirp';
 import {xmlParser, getFilesFromXML} from './xmlParser';
+import CampusError, {VALIDATION_ERROR, UNKNOWN_ERROR} from './errors';
 
 fetch.Promise = Bluebird;
 
@@ -29,12 +30,18 @@ export default class CampusNetClient {
       method: 'post',
       body: form
     }).then($ => {
+        if ($('BlockedAccess').length)
+          throw new CampusError(
+            'Username and password did not match', 
+            VALIDATION_ERROR);
+
         // new password that can be stored..
         this.PApassword = $('LimitedAccess').attr('Password');
+        
         if (!this.PApassword) {
-          // "<xml><BlockedAccess Ip="62.61.130.35" Reason="IpWrongUserCredentials" TryAgainIn="00:00:01.5312088"/></xml>"
-          throw new Error('PA password not found');
+          throw new CampusError('Could not authenticate', UNKNOWN_ERROR);
         }
+        
         return this.PApassword;
       });
 
@@ -115,14 +122,5 @@ export const createDir = function(path) {
       if (err) reject(err);
       else resolve();
     });
-    // for some reason the following async version doesn't work..
-    /*fs.lstat(path, (err, stats) => {
-      if (err) {
-        fs.mkdir(path, (err) => {
-          if (err) reject(err);
-          else resolve();
-        })
-      }
-    });*/
   });
 };

@@ -17,6 +17,10 @@ class Login extends Component {
     login: PropTypes.func.isRequired
   };
 
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   state = {username: '', password: ''};
 
   onUsernameChange = e => {
@@ -27,25 +31,33 @@ class Login extends Component {
   };
 
   onSubmit = (e) => {
-    // TODO: login
     const {username, password} = this.state;
-    this.props.login({username, password});
+    this.props.login({username, password})
+      .then((success) => {
+        if (success)
+          this.context.router.push({
+            pathname: '/preference',
+            query: { chooseFolder: true },
+          });
+      });
     e.preventDefault();
   };
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <div className="input-group-combined">
-          <input type="text" placeholder="Username" 
-            value={this.state.username}
-            onChange={this.onUsernameChange}/>
-          <input type="password" placeholder="Password"
-            value={this.state.password}
-            onChange={this.onPasswordChange}/>
-        </div>
-        <button type="submit" className="button button-block">Login</button>
-      </form>
+      <div className="container">
+        <form onSubmit={this.onSubmit}>
+          <div className="input-group-combined">
+            <input type="text" placeholder="Username" 
+              value={this.state.username}
+              onChange={this.onUsernameChange}/>
+            <input type="password" placeholder="Password"
+              value={this.state.password}
+              onChange={this.onPasswordChange}/>
+          </div>
+          <button type="submit" className="button button-block">Login</button>
+        </form>
+      </div>
     );
   }
 }
