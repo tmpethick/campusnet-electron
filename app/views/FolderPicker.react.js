@@ -36,15 +36,24 @@ class FolderPicker extends Component {
   }
 
   render() {
+    const path = this.props.destination;
     return (
       <button className="folder-picker-container" 
         onClick={this.selectFolder}
-        title={this.props.destination}>
+        title={path}>
           <div className="folder-picker-icon"></div>
           <span className="folder-picker-path">
-            {this.props.destination}
+            {path ? path : this.renderMissingPath()}
           </span>
       </button>
+    );
+  }
+
+  renderMissingPath() {
+    return (
+      <span className="text-error">
+        No destination selected
+      </span>
     );
   }
 }

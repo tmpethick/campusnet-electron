@@ -68,8 +68,8 @@ class Sync extends Component {
   }
 
   syncWithProps = async (props) => {
-    if (!props.isAuthenticated || !props.path) return;
-    await download(this.client, props.path);
+    if (props.isAuthenticated && props.path)
+      await download(this.client, props.path);
     this.props.syncStop();
   }
 
