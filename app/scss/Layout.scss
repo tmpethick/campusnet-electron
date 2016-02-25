@@ -54,6 +54,27 @@ body {
   }
 }
 
+// .app {
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// // Hack because react router adds a div
+// .page > div,
+// .page {
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;    
+// }
+
 .container {
-  padding: 20px 50px;
+  padding: 20px 21px;
+  flex: 1;
+}
+
+.footer {
+  padding: 10px 20px;
+  border-top: 1px solid rgba(black, 0.05);
+  background: white;
 }

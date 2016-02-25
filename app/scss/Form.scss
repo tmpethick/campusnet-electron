@@ -1,12 +1,12 @@
 // Form
 // ––––––––––––––––––––––––––––––––––––––––––––––––––
 
-input,
-textarea,
-select,
-fieldset {
-  margin-bottom: 1.5rem;
-}
+// input,
+// textarea,
+// select,
+// fieldset {
+//   margin-bottom: 1.5rem;
+// }
 
 input[type='email'],
 input[type='number'],
@@ -17,6 +17,7 @@ input[type='text'],
 input[type='url'],
 textarea,
 select {
+  font-size: 1.2rem;
   appearance: none;
   background-color: white;
   border: 0.1rem solid $color-quaternary;
@@ -32,7 +33,18 @@ select {
   }
 }
 
+select {
+  border: 1px solid #D5D5D5;
+  box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.05);
+
+  &:focus {
+    border: 1px solid #D5D5D5;
+  }
+}
+
 .input-group-combined {
+  margin-bottom: 1.5rem;
+
   input[type='email'],
   input[type='number'],
   input[type='password'],
@@ -71,8 +83,8 @@ textarea {
 
 label,
 legend {
-  font-size: 1.6rem;
-  font-weight: 700;
+  padding-left: 10px;
+  font-size: 1.4rem;
   display: block;
   margin-bottom: 0.5rem;
 }

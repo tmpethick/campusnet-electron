@@ -31,6 +31,10 @@ body {
   box-sizing: border-box;
 }
 
+* {
+  -webkit-user-select: none;
+}
+
 *:focus {
   outline: 0;
 }
@@ -42,7 +46,6 @@ figure,
 table,
 p,
 ul,
-ol,
-form {
+ol {
   margin-bottom: 2.5rem;
 }

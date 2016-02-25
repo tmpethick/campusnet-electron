@@ -1,4 +1,6 @@
 import CNClient from '../campusnet/campusnet-client.js';
+import CampusError from '../campusnet/errors';
+import {flashMessageFor} from './flash';
 
 export const AUTH_USER = 'AUTH_USER';
 
@@ -15,6 +17,13 @@ export function login({username, password}) {
     return client.login()
       .then(PApassword => {
         dispatch(authUser({username, PApassword}));
+        return Promise.resolve(true);
+      })
+      .catch(err => {
+        if (!err instanceof CampusError)
+          throw err;
+        dispatch(flashMessageFor(err.message, 'error'));
+        return Promise.resolve(false);
       });
   };
 };
