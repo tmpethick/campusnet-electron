@@ -13,8 +13,7 @@ export function authUser({username, PApassword}) {
 
 export function login({username, password}) {
   return (dispatch, getState) => {
-    const client = new CNClient(username, password=password);
-    return client.login()
+    return CNClient.login(username, password)
       .then(PApassword => {
         dispatch(authUser({username, PApassword}));
         return Promise.resolve(true);

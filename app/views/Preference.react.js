@@ -1,13 +1,24 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Component from 'react-pure-render/component';
 import FolderPicker from './FolderPicker.react';
 import SyncIntervalSelect from './SyncIntervalSelect.react';
+import {connect} from 'react-redux';
+import Spinner from './Spinner.react';
 
-export default class Preference extends Component {
+class Preference extends Component {
+  static PropTypes = {
+    isSyncing: PropTypes.bool
+  }
+
+  static contextTypes = {
+    forceCampusnetSync: PropTypes.func
+  };
+
   render() {
     const state = this.props.location.state;
     const chooseFolder = state ? state.chooseFolder : false;
+    const {forceCampusnetSync} = this.context;
     return (
       <div>
         <div className="container">
@@ -17,9 +28,17 @@ export default class Preference extends Component {
           <SyncIntervalSelect/>
         </div>
         <div className="footer">
-          <div className="button button-block">Sync already!</div>
+          <button className="button button-block" 
+            onClick={forceCampusnetSync}
+            disabled={this.props.isSyncing}>
+              {this.props.isSyncing ? <Spinner/> : "Sync already!"}
+          </button>
         </div>
       </div>
     );
   }
 }
+
+export default connect(
+  (state) => ({isSyncing: state.sync.get('isSyncing')})
+)(Preference);

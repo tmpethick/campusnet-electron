@@ -9,7 +9,7 @@ import CampusNetClient from './campusnet-client';
  * @param  {CampusNetClient} client 
  * @return {[type]}        [description]
  */
-export const download = function(client) {
+export const download = function(client, rootPath) {
   return client.getElements()
     .then(elements => {
       return Promise.all(
@@ -19,7 +19,7 @@ export const download = function(client) {
             .then(fileGenerator => {
               let promises = [];
               for (let file of fileGenerator) {
-                promises.push(downloadFile(client, element, file));
+                promises.push(downloadFile(client, rootPath, element, file));
               }
               return Promise.all(promises);
             });
@@ -29,11 +29,11 @@ export const download = function(client) {
 
 };
 
-export const downloadFile = function(client, element={id, name}, file={id, path, modifiedDate}) {
+export const downloadFile = function(client, rootPath, element={id, name}, file={id, path, modifiedDate}) {
   // TODO. append element path
   const topFolder = sanitizeFilename(element.name);
   let path = file.path.map(part => sanitizeFilename(part)).join('/');
-  path = osPath.join(__dirname, 'downloads', topFolder, path);
+  path = osPath.join(rootPath, topFolder, path);
 
   return newestVersionExists(path, file.modifiedDate)
     .then(newestExists => {

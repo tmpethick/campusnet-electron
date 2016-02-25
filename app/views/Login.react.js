@@ -3,6 +3,7 @@ import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Component from 'react-pure-render/component';
 import CampusNetClient from '../campusnet/campusnet-client';
+import Spinner from './Spinner.react';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -21,7 +22,7 @@ class Login extends Component {
     router: PropTypes.object
   };
 
-  state = {username: '', password: ''};
+  state = {username: '', password: '', loading: false};
 
   onUsernameChange = e => {
     this.setState({username: e.target.value});
@@ -32,8 +33,10 @@ class Login extends Component {
 
   onSubmit = (e) => {
     const {username, password} = this.state;
+    this.setState({loading: true});
     this.props.login({username, password})
       .then((success) => {
+        this.setState({loading: false});
         if (success)
           this.context.router.push({
             pathname: '/preference',
@@ -55,7 +58,11 @@ class Login extends Component {
               value={this.state.password}
               onChange={this.onPasswordChange}/>
           </div>
-          <button type="submit" className="button button-block">Login</button>
+          <button type="submit" 
+            className="button button-block"
+            disabled={this.state.loading}>
+              {this.state.loading ? <Spinner/> : "Login"}
+          </button>
         </form>
       </div>
     );

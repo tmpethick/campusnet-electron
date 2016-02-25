@@ -29,8 +29,13 @@ input[type='submit'] {
   text-transform: uppercase;
   white-space: nowrap;
 
-  &:hover,
-  &:focus {
+  &:hover {
+    background-color: darken($color-primary, 5%);
+    border-color: darken($color-primary, 5%);
+    color: $color-initial;
+    outline: 0;
+  }
+  &:disabled {
     background-color: $color-secondary;
     border-color: $color-secondary;
     color: $color-initial;

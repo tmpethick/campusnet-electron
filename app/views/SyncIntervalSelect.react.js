@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Component from 'react-pure-render/component';
-import moment from 'moment';
 
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
@@ -9,9 +8,9 @@ import {changeSyncInterval} from '../actions/sync';
 import {flashMessageFor} from '../actions/flash';
 
 export const SYNC_OPTIONS = [
-  {name: 'Every 15 min', value: moment.duration(15, 'minutes')},
-  {name: 'Every hour', value: moment.duration(1, 'hours')},
-  {name: 'Every second hour', value: moment.duration(2, 'hours')},
+  {name: 'Every 15 min', value: '11'},
+  {name: 'Every hour', value: '22'},
+  {name: 'Every second hour', value: '33'},
 ];
 
 class SyncIntervalSelect extends Component {
@@ -36,7 +35,7 @@ class SyncIntervalSelect extends Component {
 }
 
 export default connect(
-  (state) => ({syncInterval: state.sync}),
+  (state) => ({syncInterval: state.sync.get('interval')}),
   (dispatch) => bindActionCreators(
     {changeSyncInterval, flashMessageFor}, dispatch),
 )(SyncIntervalSelect);
