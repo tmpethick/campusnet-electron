@@ -16,7 +16,6 @@ export default class App extends Component {
   }
 
   resizeWindow() {
-    console.log("!!!")
     const el = ReactDOM.findDOMNode(this.refs.app);
     const win = remote.getCurrentWindow();
     win.setContentSize(win.getContentSize()[0], el.offsetHeight, true)

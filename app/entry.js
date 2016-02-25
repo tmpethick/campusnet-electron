@@ -6,17 +6,10 @@ import {Provider} from 'react-redux';
 import routes from './routes';
 import configureStore from './store/configureStore';
 
-if (process.env.NODE_ENV !== 'production')
-  remote.BrowserWindow.addDevToolsExtension('react-devtools/shells/chrome');
+// if (process.env.NODE_ENV !== 'production')
+//  remote.BrowserWindow.addDevToolsExtension('react-devtools/shells/chrome');
 
-let store = configureStore()
-/*
-{
-  flash: [
-    {message: 'Destination folder was updated', type: 'error'},
-  ]
-}
- */
+let store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>

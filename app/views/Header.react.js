@@ -17,7 +17,7 @@ export default class Header extends Component {
           </div>
           <div className="header-right">
             <Dropdown>
-              <Link to="">Preference</Link>
+              <Link to="/preference">Preference</Link>
               <Link to="">Logout</Link>
               <Link to="">Quit</Link>
             </Dropdown>
