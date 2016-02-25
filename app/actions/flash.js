@@ -8,7 +8,7 @@ let dismissTimer;
 export function flashMessage(message, type) {
   return {
     type: FLASH_ADD,
-    payload: {message, type, id: UUID.create()}
+    payload: {message, type, id: UUID.create().hex}
   }
 };
 

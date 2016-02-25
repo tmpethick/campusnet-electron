@@ -1,0 +1,35 @@
+// Base
+// ------------------------------
+.spinner {
+    display: inline-block;
+    font-size: 1em;
+    height: 1.3em;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+}
+
+// Dots
+// ------------------------------
+.spinner-dot {
+    animation: pulse 1s infinite ease-in-out;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: top;
+    background-color: white;
+}
+&.spinner-dot-second {
+    animation-delay: 160ms;
+    margin-left: 1em;
+}
+&.spinner-dot-third {
+    animation-delay: 320ms;
+    margin-left: 1em;
+}
+
+@keyframes pulse {
+    0%, 80%, 100% { opacity: 0; }
+    40% { opacity: 1; }
+}

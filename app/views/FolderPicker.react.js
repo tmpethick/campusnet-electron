@@ -18,11 +18,15 @@ class FolderPicker extends Component {
   selectFolder = () => {
     let path = dialog.showSaveDialog({
       title: 'Create destination',
-      defaultPath: DEFAULT_DESTINATION,
+      defaultPath: this.props.destination || DEFAULT_DESTINATION,
       properties: ['createDirectory']
     });
-    this.props.changeDestination(path);
-    this.props.flashMessageFor("Destination folder was updated", "success");
+    if (!path && !this.props.destination) {
+      this.props.flashMessageFor("Choose a destination to get started", "error");
+    } else if (path) {
+      this.props.changeDestination(path);
+      this.props.flashMessageFor("Destination folder was updated", "success");
+    }
     // TODO: alert if it overrides existing folder
   };
 

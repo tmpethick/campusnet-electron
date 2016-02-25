@@ -10,7 +10,7 @@ describe('CampusNet Client', function() {
   it('should login fetcher', function(done) {
     let client = new CampusNetClient('s144448', 'wBA49deM');
     client.login()
-      .then(() => download(client))
+      .then(() => download(client, path.join(__dirname, 'downloads')))
       .then(() => done());
   });
   */
@@ -19,7 +19,7 @@ describe('CampusNet Client', function() {
   //   let client = new CampusNetClient('s144448', 'wBA49deM');
   //   client.login()
   //     .then(() => {
-  //       return downloadFile(client, "495445", {
+  //       return downloadFile(client, path.join(__dirname, 'downloads'), "495445", {
   //         id: "3902993",
   //         path: ["Materials", "AlgorithmDesign.pdf"],
   //         modifiedDate: new Date(10)

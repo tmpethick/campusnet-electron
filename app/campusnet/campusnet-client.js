@@ -15,18 +15,21 @@ const BASE_URL = 'https://www.campusnet.dtu.dk/data/CurrentUser';
 const appName = 'campusnet-electron';
 const appToken = 'b6d080a8-d6a1-4355-bc79-fc45657cb8e1';
 
-export default class CampusNetClient {
-  constructor(username, password='', PApassword='') {
-    this.username = username;
-    this.password = password;
-    this.PApassword = PApassword;
+export default class CNClient {
+  constructor(username, PApassword='') {
+    this.initialize(username, PApassword);
   }
 
-  login() {
+  initialize(username, PApassword) {
+    this.username = username;
+    this.PApassword = PApassword;    
+  }
+
+  static login(username, password) {
     let form = new FormData();
-    form.append('username', this.username);
-    form.append('password', this.password);
-    return this.request(AUTH_URL, {
+    form.append('username', username);
+    form.append('password', password);
+    return CNClient.request(AUTH_URL, {
       method: 'post',
       body: form
     }).then($ => {
@@ -36,13 +39,13 @@ export default class CampusNetClient {
             VALIDATION_ERROR);
 
         // new password that can be stored..
-        this.PApassword = $('LimitedAccess').attr('Password');
+        const PApassword = $('LimitedAccess').attr('Password');
         
-        if (!this.PApassword) {
+        if (!PApassword) {
           throw new CampusError('Could not authenticate', UNKNOWN_ERROR);
         }
         
-        return this.PApassword;
+        return PApassword;
       });
 
   }
@@ -50,7 +53,7 @@ export default class CampusNetClient {
   authRequest(url, options = {}, parse=true) {
     const auth = Buffer(`${this.username}:${this.PApassword}`, 'binary')
                     .toString('base64');
-    return this.request(url, {
+    return CNClient.request(url, {
       headers: {
         'Authorization': `Basic ${auth}`,
         'X-appname': appName,
@@ -59,7 +62,7 @@ export default class CampusNetClient {
     }, parse);
   }
 
-  request(url, options = {}, parse=true) {
+  static request(url, options = {}, parse=true) {
     let promise = fetch(url, Object.assign({
       method: 'get'
     }, options))
