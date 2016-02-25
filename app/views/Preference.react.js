@@ -17,7 +17,8 @@ class Preference extends Component {
 
   render() {
     const state = this.props.location.state;
-    const chooseFolder = state ? state.chooseFolder : false;
+    const fromLogin = state ? state.fromLogin : false;
+    const chooseFolder = fromLogin && !this.props.destination;
     const {forceCampusnetSync} = this.context;
     return (
       <div>
@@ -40,5 +41,8 @@ class Preference extends Component {
 }
 
 export default connect(
-  (state) => ({isSyncing: state.sync.get('isSyncing')})
+  (state) => ({
+    isSyncing: state.sync.get('isSyncing'),
+    destination: state.destination
+  })
 )(Preference);
