@@ -38,10 +38,16 @@
     }
   }
 
-  &-list-item a {
+  &-list-item a,
+  &-list-item .link {
     display: block;
     padding: 8px 40px 8px 25px;
     color: $color-secondary;
+    
+    // Necessary for button elements
+    text-align: left;
+    width: 100%;
+    font-size: 1.2rem;
 
     &:hover {
       background-color: $color-primary;

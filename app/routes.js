@@ -7,15 +7,20 @@ import {isAuthenticated} from './store/helpers';
 
 export function getRoutes({ dispatch, getState }) {
 
-  function authCheck(nextState, replace) {
+  function authBlock(nextState, replace) {
     if (!isAuthenticated(getState()))
       replace({pathname: '/'});
   };
 
+  function preferenceRedirect(nextState, replace) {
+    if (isAuthenticated(getState()))
+      replace({pathname: '/preference'});
+  };
+
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={Login}/>
-      <Route component={Preference} path="preference" onEnter={authCheck}/>
+      <IndexRoute component={Login} onEnter={preferenceRedirect}/>
+      <Route component={Preference} path="preference" onEnter={authBlock}/>
     </Route>
   );
 };

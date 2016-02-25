@@ -3,12 +3,17 @@ import CampusError from '../campusnet/errors';
 import {flashMessageFor} from './flash';
 
 export const AUTH_USER = 'AUTH_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
 
 export function authUser({username, PApassword}) {
   return {
     type: AUTH_USER,
     user: {username, PApassword}
   }
+};
+
+export function logoutUser() {
+  return {type: LOGOUT_USER}
 };
 
 export function login({username, password}) {
