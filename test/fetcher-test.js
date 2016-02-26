@@ -1,5 +1,5 @@
 import {download, downloadFile, newestVersionExists} from '../app/campusnet/downloader';
-import CampusNetClient from '../app/campusnet/campusnet-client';
+import CNClient from '../app/campusnet/campusnet-client';
 import {xmlParser, getFilesFromXML, getModifiedDate} from '../app/campusnet/xmlParser';
 import Promise from 'bluebird';
 import path from 'path';
@@ -8,27 +8,37 @@ describe('CampusNet Client', function() {
 
   /*
   it('should login fetcher', function(done) {
-    let client = new CampusNetClient('s144448', '***REMOVED***');
-    client.login()
-      .then(() => download(client, path.join(__dirname, 'downloads')))
-      .then(() => done());
+    CNClient.login('s144448', '***REMOVED***')
+      .then((PApassword) => new CNClient('s144448', PApassword))
+      .then((client) => download(client, path.join(__dirname, 'downloads')))
+      .then(() => {
+        done()
+      });
   });
   */
 
-  // it('should download one file', function(done) {
-  //   let client = new CampusNetClient('s144448', '***REMOVED***');
-  //   client.login()
-  //     .then(() => {
-  //       return downloadFile(client, path.join(__dirname, 'downloads'), "495445", {
-  //         id: "3902993",
-  //         path: ["Materials", "AlgorithmDesign.pdf"],
-  //         modifiedDate: new Date(10)
-  //       });
-  //     })
-  //     .then(() => {
-  //       done();
-  //     })
-  // });
+  /*
+  it('should download one file', function(done) {
+    CNClient.login('s144448', '***REMOVED***')
+      .then((PApassword) => new CNClient('s144448', PApassword))
+      .then((client) => {
+        return downloadFile(
+          client, 
+          path.join(__dirname, 'downloads'), 
+          {id: "495445", name: "AlgorithmDesign.pdf"}, 
+          {
+            id: "3902993",
+            path: ["Materials", "AlgorithmDesign.pdf"],
+            modifiedDate: new Date(10)
+          }
+        );
+      })
+      .catch((err) => console.log(err))
+      .then(() => {
+        done();
+      })
+  });
+  */
 
   it('should newest', function(done) {
     newestVersionExists(

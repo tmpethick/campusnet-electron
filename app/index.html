@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Electron + React + Sass</title>
+    <title>CampusNet Sync</title>
 </head>
 <body>
     <div id="app"></div>
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script>
     var bundlePath = '../build/bundle.js';
-    if(typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
+    if(typeof process !== 'undefined' && process.env.NODE_ENV === 'development') {
         bundlePath = 'http://localhost:8080/build/bundle.js';
     }
     var bundleScriptEl = document.createElement('script');

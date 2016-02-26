@@ -22,7 +22,7 @@ export default class CNClient {
 
   initialize(username, PApassword) {
     this.username = username;
-    this.PApassword = PApassword;    
+    this.PApassword = PApassword;
   }
 
   static login(username, password) {

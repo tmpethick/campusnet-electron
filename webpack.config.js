@@ -7,8 +7,17 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: __dirname + '/build',
-    publicPath: 'http://localhost:8080/build/'
+    publicPath: process.env.NODE_ENV === 'development' ?
+      'http://localhost:8080/build/' : '../build/'
   },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }
+    })
+  ],
 
   module: {
     loaders: [
