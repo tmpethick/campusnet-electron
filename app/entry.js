@@ -7,7 +7,7 @@ import {getRoutes} from './routes';
 import configureStore from './store/configureStore';
 import Sync from './Sync.react';
 
-// if (process.env.NODE_ENV !== 'production')
+// if (process.env.NODE_ENV === 'development')
 //  remote.BrowserWindow.addDevToolsExtension('react-devtools/shells/chrome');
 
 const store = configureStore();

@@ -13,7 +13,7 @@ export default class App extends Component {
         {this.props.children}
         {
           (() => {
-            if (process.env.NODE_ENV !== 'production') {
+            if (process.env.NODE_ENV === 'development') {
               const DevTools = require('./DevTools.react').default;
               return <DevTools />;
             }

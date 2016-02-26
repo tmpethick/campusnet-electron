@@ -2,6 +2,7 @@ import fs from 'fs';
 import osPath from 'path';
 import sanitizeFilename from 'sanitize-filename';
 import CampusNetClient from './campusnet-client';
+import Promise from 'bluebird';
 
 /**
  * requires `client` to be authenticated.
@@ -26,10 +27,28 @@ export const download = function(client, rootPath) {
         })
       );
     });
-
 };
+/*
+Sync version
+export const download = async function(client, rootPath) {
+  const elements = await client.getElements();
 
-export const downloadFile = function(client, rootPath, element={id, name}, file={id, path, modifiedDate}) {
+  for (let element of elements) {
+    let fileGenerator = await client.getElementFiles(element.id);
+
+    for (let file of fileGenerator) {
+      await downloadFile(client, rootPath, element, file);
+    }
+  }
+  return true;
+};
+*/
+
+export const downloadFile = function(
+  client, rootPath, 
+  element={id, name}, 
+  file={id, path, modifiedDate}) 
+{
   // TODO. append element path
   const topFolder = sanitizeFilename(element.name);
   let path = file.path.map(part => sanitizeFilename(part)).join('/');
@@ -38,10 +57,9 @@ export const downloadFile = function(client, rootPath, element={id, name}, file=
   return newestVersionExists(path, file.modifiedDate)
     .then(newestExists => {
       if (!newestExists) {
-        console.log("have to download")
         return client.downloadFile(element.id, file.id, path);
       }
-      return;
+      return Promise.resolve();
     });
 }
 
@@ -51,12 +69,11 @@ export const downloadFile = function(client, rootPath, element={id, name}, file=
 export const newestVersionExists = function(path, newCreationDate) {
   return new Promise((resolve, reject) => {
     fs.lstat(path, (err, stats) => {
-      if (err) 
+      if (err)
         resolve(false);
       else 
         resolve(stats.isFile() && stats.birthtime >= newCreationDate);
     });
-
   });
 }
 
