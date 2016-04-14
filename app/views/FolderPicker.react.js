@@ -18,7 +18,9 @@ class FolderPicker extends Component {
   selectFolder = () => {
     let path = dialog.showSaveDialog({
       title: 'Create destination',
-      defaultPath: this.props.destination || DEFAULT_DESTINATION,
+      // Add `2` to path so that that `PATH/Untitled` is not 
+      // suggested in the folder picker.
+      defaultPath: `${this.props.destination} 2` || DEFAULT_DESTINATION,
       properties: ['createDirectory']
     });
     if (!path && !this.props.destination) {
