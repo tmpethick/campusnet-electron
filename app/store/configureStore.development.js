@@ -1,11 +1,13 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistState as persistDevState } from 'redux-devtools';
-import persistState from 'redux-localstorage';
+import Immutable from 'immutable';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools.react';
+import persistState from './persistState';
 
 const enhancer = compose(
+  persistState(),
   applyMiddleware(thunk),
   DevTools.instrument(),
   persistDevState(
@@ -13,10 +15,9 @@ const enhancer = compose(
       /[?&]debug_session=([^&]+)\b/
     )
   ),
-  persistState()
 );
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState = new Immutable.Map()) {
   const store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {

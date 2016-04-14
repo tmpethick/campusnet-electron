@@ -12,8 +12,8 @@ packager({
   icon: path.join(__dirname, 'logo/logo'),
   asar: true,
   overwrite: true,
-  // all: true,
-  platform: 'darwin',
+  all: true,
+  // platform: 'darwin', // 'win32',
   arch: 'x64',
   prune: true,
   ignore: [

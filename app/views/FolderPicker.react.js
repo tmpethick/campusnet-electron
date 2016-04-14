@@ -59,7 +59,7 @@ class FolderPicker extends Component {
 }
 
 export default connect(
-  (state) => ({destination: state.destination}),
+  (state) => ({destination: state.get('destination')}),
   (dispatch) => bindActionCreators(
     {changeDestination,flashMessageFor}, dispatch),
 )(FolderPicker);

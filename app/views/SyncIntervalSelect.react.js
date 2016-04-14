@@ -35,7 +35,7 @@ class SyncIntervalSelect extends Component {
 }
 
 export default connect(
-  (state) => ({syncInterval: state.sync.get('interval')}),
+  (state) => ({syncInterval: state.get('sync').get('interval')}),
   (dispatch) => bindActionCreators(
     {changeSyncInterval, flashMessageFor}, dispatch),
 )(SyncIntervalSelect);

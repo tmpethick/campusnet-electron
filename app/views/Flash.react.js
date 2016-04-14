@@ -18,9 +18,9 @@ class Flash extends Component {
           transitionEnterTimeout={200} 
           transitionLeaveTimeout={200}>
             {this.props.flash.map(flash => (
-              <div className="flash-container" key={flash.id}>
-                <div className={`flash flash-${flash.type}`}>
-                  {flash.message}
+              <div className="flash-container" key={flash.get('id')}>
+                <div className={`flash flash-${flash.get('type')}`}>
+                  {flash.get('message')}
                 </div>
               </div>
             ))}
@@ -31,5 +31,5 @@ class Flash extends Component {
 }
 
 export default connect(
-  (state) => ({flash: state.flash}),
+  (state) => ({flash: state.get('flash')}),
 )(Flash);

@@ -11,38 +11,15 @@ import Promise from 'bluebird';
  * @return {[type]}        [description]
  */
 export const download = function(client, rootPath) {
-  return client.getElements()
-    .then(elements => {
-      return Promise.all(
-        elements.map(element => {
-          return client
-            .getElementFiles(element.id)
-            .then(fileGenerator => {
-              let promises = [];
-              for (let file of fileGenerator) {
-                promises.push(downloadFile(client, rootPath, element, file));
-              }
-              return Promise.all(promises);
-            });
-        })
-      );
-    });
+  return Promise.map(client.getElements(), element => {
+    return client.getElementFiles(element.id)
+      .then(fileGenerator => {
+        return Promise.map(fileGenerator, file => {
+          return downloadFile(client, rootPath, element, file);
+        });
+      });
+  });
 };
-/*
-Sync version
-export const download = async function(client, rootPath) {
-  const elements = await client.getElements();
-
-  for (let element of elements) {
-    let fileGenerator = await client.getElementFiles(element.id);
-
-    for (let file of fileGenerator) {
-      await downloadFile(client, rootPath, element, file);
-    }
-  }
-  return true;
-};
-*/
 
 export const downloadFile = function(
   client, rootPath, 

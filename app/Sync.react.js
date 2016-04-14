@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from './actions/sync';
 
-
 function moveFolder(oldPath, newPath) {
   return new Promise((resolve, reject) => {
     mv(oldPath, newPath, {mkdirp: true}, (err) => {
@@ -23,7 +22,7 @@ function moveFolder(oldPath, newPath) {
 
 class Sync extends Component {
   static PropTypes = {
-    user: PropTypes.object,
+    user: PropTypes.instanceOf(Immutable.Map).isRequired,
     path: PropTypes.string,
     interval: PropTypes.integer,
     syncStart: PropTypes.func,
@@ -59,8 +58,8 @@ class Sync extends Component {
       // remove and add again
     }
 
-    if (shallowEqual(oldProps.user, newProps.user)) {
-      const {username, PApassword} = newProps.user || {};
+    if (oldProps.user.equals(newProps.user)) {
+      const {username, PApassword} = newProps.user.toJS();
       this.client.initialize(username, PApassword);
       // TODO: clear folder?
     }
@@ -85,10 +84,10 @@ class Sync extends Component {
 
 export default connect(
   (state) => ({
-    user: state.auth.get('user'),
+    user: state.get('auth').get('user') || Immutable.Map(),
     isAuthenticated: isAuthenticated(state),
-    path: state.destination,
-    interval: state.sync.get('interval')
+    path: state.get('destination'),
+    interval: state.get('sync').get('interval')
   }),
   (dispatch) => bindActionCreators(Actions, dispatch)
 )(Sync);
