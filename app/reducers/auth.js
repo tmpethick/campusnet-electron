@@ -6,7 +6,7 @@ export default createReducer(
   new Immutable.Map(), 
   {
     [AUTH_USER](state, action) {
-      return state.set('user', action.user);
+      return state.set('user', Immutable.fromJS(action.user));
     },
     [LOGOUT_USER](state, action) {
       return state.delete('user');

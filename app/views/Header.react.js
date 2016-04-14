@@ -15,9 +15,15 @@ class Header extends Component {
     isSyncing: React.PropTypes.bool
   };
 
+  static contextTypes = {
+    forceCampusnetSync: React.PropTypes.func
+  };
+
   openFolder = () => {
     if (this.props.destination) {
+      this.context.forceCampusnetSync();
       shell.openItem(this.props.destination);
+      remote.getCurrentWindow().hide();
     }
   };
   
@@ -64,8 +70,8 @@ class Header extends Component {
 export default connect(
   (state) => ({
     isAuthenticated: isAuthenticated(state),
-    isSyncing: state.sync.get('isSyncing'),
-    destination: state.destination
+    isSyncing: state.get('sync').get('isSyncing'),
+    destination: state.get('destination')
   }),
   (dispatch) => bindActionCreators({logoutUser}, dispatch)
 )(Header);

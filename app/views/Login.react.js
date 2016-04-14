@@ -11,10 +11,6 @@ import * as Actions from '../actions/auth';
 
 class Login extends Component {
   static propTypes = {
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      PApassword: PropTypes.string
-    }),
     login: PropTypes.func.isRequired
   };
 
@@ -70,6 +66,6 @@ class Login extends Component {
 }
 
 export default connect(
-  (state) => ({user: state.auth.user}),
+  (state) => ({}),
   (dispatch) => bindActionCreators(Actions, dispatch),
 )(Login);

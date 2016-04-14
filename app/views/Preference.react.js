@@ -42,7 +42,7 @@ class Preference extends Component {
 
 export default connect(
   (state) => ({
-    isSyncing: state.sync.get('isSyncing'),
-    destination: state.destination
+    isSyncing: state.get('sync').get('isSyncing'),
+    destination: state.get('destination')
   })
 )(Preference);

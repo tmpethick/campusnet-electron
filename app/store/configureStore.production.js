@@ -1,13 +1,14 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import persistState from 'redux-localstorage';
+import Immutable from 'immutable';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
+import persistState from './persistState';
 
 const enhancer = compose(
-  applyMiddleware(thunk),
-  persistState()
+  persistState(),
+  applyMiddleware(thunk)
 );
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState = new Immutable.Map()) {
   return createStore(rootReducer, initialState, enhancer);
 }

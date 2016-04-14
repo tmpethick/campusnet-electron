@@ -10,7 +10,7 @@ export default createReducer(
   {
     [FLASH_ADD](state, action) {
       // return state.push(action.payload);
-      return new Immutable.List([action.payload]);
+      return new Immutable.List([Immutable.fromJS(action.payload)]);
     },
     [FLASH_REMOVE](state, action) {
       return new Immutable.List();
