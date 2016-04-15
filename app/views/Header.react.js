@@ -43,11 +43,14 @@ class Header extends Component {
           <div className="header-left">
             {isAuth ? [
               <button className="header-action ion-folder" 
+                title="Open folder on your computer"
                 onClick={this.openFolder}
                 key="openFolder" />,
               <div className="header-seperator" key="seperator"/>
             ] : ''}
-            <button className="header-action ion-earth"
+            <button 
+                title="Open CampusNet"
+              className="header-action ion-earth"
               onClick={this.openCampusnet}/>
           </div>
           <div className="header-title">
