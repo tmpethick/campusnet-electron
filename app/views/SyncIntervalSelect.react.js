@@ -8,14 +8,15 @@ import {changeSyncInterval} from '../actions/sync';
 import {flashMessageFor} from '../actions/flash';
 
 export const SYNC_OPTIONS = [
-  {name: 'Every 15 min', value: '11'},
-  {name: 'Every hour', value: '22'},
-  {name: 'Every second hour', value: '33'},
+  {name: 'Never', value: ''},
+  {name: 'Every 15 min', value: '0 */15 * * * *'},
+  {name: 'Every hour', value: '0 0 */1 * * *'},
+  {name: 'Every second hour', value: '0 0 */2 * * *'},
 ];
 
 class SyncIntervalSelect extends Component {
   changeSyncInterval = (e) => {
-    this.props.changeSyncInterval(parseInt(e.target.value, 10));
+    this.props.changeSyncInterval(e.target.value);
     this.props.flashMessageFor('Sync interval was changed', 'success');
   };
 

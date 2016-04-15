@@ -10,6 +10,7 @@ import mv from 'mv';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from './actions/sync';
+import {CronJob} from 'cron';
 
 function moveFolder(oldPath, newPath) {
   return new Promise((resolve, reject) => {
@@ -24,7 +25,7 @@ class Sync extends Component {
   static PropTypes = {
     user: PropTypes.instanceOf(Immutable.Map).isRequired,
     path: PropTypes.string,
-    interval: PropTypes.integer,
+    interval: PropTypes.string,
     syncStart: PropTypes.func,
     syncStop: PropTypes.func
   };
@@ -54,23 +55,45 @@ class Sync extends Component {
         await moveFolder(oldProps.path, newProps.path);
     }
 
-    if (oldProps.interval !== newProps.interval) {
-      // remove and add again
-    }
-
-    if (oldProps.user.equals(newProps.user)) {
+    if (!oldProps.user.equals(newProps.user)) {
       const {username, PApassword} = newProps.user.toJS();
       this.client.initialize(username, PApassword);
       // TODO: clear folder?
     }
+
+    if (this.shouldSync(newProps)) {
+      this.startCronJob(newProps.interval);
+    }
+
+    // Stop cron job if logged out
+    if (!newProps.isAuthenticated) {
+      this.stopCronJob();
+    }
+
     this.syncWithProps(newProps);
   }
 
+  startCronJob = (interval) => {
+    this.stopCronJob();    
+    if (interval)
+      this._cronJob = new CronJob({
+        cronTime: interval,
+        onTick: () => this.sync,
+        start: true
+      });
+  };
+
+  stopCronJob = () => {
+    this._cronJob && this._cronJob.stop();
+  };
+
   syncWithProps = async (props) => {
-    if (props.isAuthenticated && props.path)
+    if (this.shouldSync(props))
       await download(this.client, props.path);
     this.props.syncStop();
   }
+
+  shouldSync = (props) => !!(props.isAuthenticated && props.path);
 
   sync = () => {
     this.props.syncStart();
