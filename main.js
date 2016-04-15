@@ -3,7 +3,7 @@
 const path = require('path');
 const MenuBar = require('menubar');
 
-//if (process.env.NODE_ENV === 'development')
+if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
 
 require('crash-reporter').start({
@@ -19,10 +19,9 @@ const menu = MenuBar({
   icon: path.join(__dirname, 'logo', 'menuIconTemplate.png'),
   index: `file://${__dirname}/app/index.html`,
   'preload-window': true,
-  // 'always-on-top': true // TODO: remove
+  resizable: false
 });
 
 menu.on('ready', () => {
   menu.tray.setToolTip('CampusNet Sync');
-  // menu.showWindow(); // TODO: remove
 });
