@@ -2,12 +2,13 @@
 
 const path = require('path');
 const MenuBar = require('menubar');
+const AutoLaunch = require('auto-launch');
 
 //if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
 
 require('crash-reporter').start({
-  productName: 'CampusNet Sync',
+  productName: 'CampusNetSync',
   companyName: 'tmpcode',
   submitURL: 'https://pethick.dk',
   autoSubmit: true
@@ -25,4 +26,14 @@ const menu = MenuBar({
 
 menu.on('ready', () => {
   menu.tray.setToolTip('CampusNet Sync');
+});
+
+ 
+var appLauncher = new AutoLaunch({
+  name: 'CampusNetSync'
+});
+ 
+appLauncher.isEnabled().then(function(enabled){
+  if(enabled) return;
+  return appLauncher.enable()
 });
