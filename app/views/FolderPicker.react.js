@@ -15,6 +15,10 @@ class FolderPicker extends Component {
     chooseFolder: React.PropTypes.bool
   }
 
+  static contextTypes = {
+    syncAndOpenFolder: React.PropTypes.func
+  };
+
   selectFolder = () => {
     let path = dialog.showOpenDialog({
       title: 'Create destination',
@@ -23,6 +27,7 @@ class FolderPicker extends Component {
       defaultPath: this.props.destination || DEFAULT_DESTINATION,
       properties: ['openDirectory', 'createDirectory']
     });
+    path = path ? path[0] : undefined; // since path is an array
     if (path === DEFAULT_DESTINATION) {
       path = DEFAULT_DESTINATION + '/CampusNet';
     }
@@ -43,14 +48,21 @@ class FolderPicker extends Component {
   render() {
     const path = this.props.destination;
     return (
-      <button className="folder-picker-container" 
-        onClick={this.selectFolder}
-        title={path}>
-          <div className="folder-picker-icon"></div>
-          <span className="folder-picker-path">
-            {path ? path : this.renderMissingPath()}
-          </span>
-      </button>
+      <div className="folder-picker-container">
+        <button  
+          className="folder-picker-dest"
+          onClick={path ? this.context.syncAndOpenFolder : this.selectFolder}
+          title={path}>
+            <div className="folder-picker-icon"></div>
+            <span className="folder-picker-path">
+              {path ? path : this.renderMissingPath()}
+            </span>
+        </button>
+        <button className="folder-picker-change-btn" 
+          onClick={this.selectFolder}>
+            {path ? 'Change file destination' : 'Choose file destination'}
+        </button>
+      </div>
     );
   }
 

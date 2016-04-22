@@ -16,15 +16,7 @@ class Header extends Component {
   };
 
   static contextTypes = {
-    forceCampusnetSync: React.PropTypes.func
-  };
-
-  openFolder = () => {
-    if (this.props.destination) {
-      this.context.forceCampusnetSync();
-      shell.openItem(this.props.destination);
-      remote.getCurrentWindow().hide();
-    }
+    syncAndOpenFolder: React.PropTypes.func
   };
   
   openCampusnet() {
@@ -35,7 +27,6 @@ class Header extends Component {
     remote.app.quit();
   };
 
-
   render() {
     const isAuth = this.props.isAuthenticated;
     return (
@@ -44,7 +35,7 @@ class Header extends Component {
             {isAuth ? [
               <button className="header-action ion-folder" 
                 title="Open folder on your computer"
-                onClick={this.openFolder}
+                onClick={this.context.syncAndOpenFolder}
                 key="openFolder" />,
               <div className="header-seperator" key="seperator"/>
             ] : ''}

@@ -11,5 +11,5 @@ const localStorageConfig = {
 };
 
 export default function() {
-  return persistState(undefined, localStorageConfig);
+  return persistState(['auth', 'sync', 'destination'], localStorageConfig);
 };

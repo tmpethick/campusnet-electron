@@ -7,9 +7,24 @@
     border: 1px dashed #CCC9C9;
     border-radius: 5px;
     text-align: center;
-    padding-bottom: 10px;
     margin-bottom: 10px;
     cursor: pointer;
+    overflow: hidden;
+}
+
+.folder-picker-dest {
+    font-size: 1.5rem;
+    
+    .folder-picker-icon {
+        transform: scale(1);
+        transition: transform 0.2s;
+    }
+
+    &:hover {
+        .folder-picker-icon {
+            transform: scale(1.1);
+        }
+    }
 }
 
 .folder-picker-icon:after {
@@ -20,6 +35,7 @@
     -webkit-text-stroke: 1px $color-folder-border;
 }
 
+
 .folder-picker-path {
     display: block;
     font-size: 1.2rem;
@@ -27,4 +43,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 10px;
+}
+
+.folder-picker-change-btn {
+    margin-top: 10px;
+    background: $color-grey-lighter;
+    border-top: 1px solid darken($color-grey-lighter, 5%);
+    width: 100%;
+    padding: 10px;
+    transition: opacity 0.2s;
+
+    &:hover {
+        background: darken($color-grey-lighter, 2%);
+    }
 }
