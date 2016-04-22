@@ -1,6 +1,6 @@
 
 
-# CampusNet Sync
+# CampusNetSync
 
 This app allows you to sync all your DTU CampusNet files from your menubar. It is build with [electron](http://electron.atom.io/) so it works on both Mac, Windows and linux!
 
