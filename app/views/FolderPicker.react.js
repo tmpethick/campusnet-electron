@@ -8,7 +8,7 @@ import {flashMessageFor} from '../actions/flash';
 
 const {dialog, app} = remote;
 
-export const DEFAULT_DESTINATION = app.getPath('documents') + '/CampusNet';
+export const DEFAULT_DESTINATION = app.getPath('documents');
 
 class FolderPicker extends Component {
   static propTypes = {
@@ -16,13 +16,16 @@ class FolderPicker extends Component {
   }
 
   selectFolder = () => {
-    let path = dialog.showSaveDialog({
+    let path = dialog.showOpenDialog({
       title: 'Create destination',
       // Add `2` to path so that that `PATH/Untitled` is not 
       // suggested in the folder picker.
-      defaultPath: `${this.props.destination} 2` || DEFAULT_DESTINATION,
-      properties: ['createDirectory']
+      defaultPath: this.props.destination || DEFAULT_DESTINATION,
+      properties: ['openDirectory', 'createDirectory']
     });
+    if (path === DEFAULT_DESTINATION) {
+      path = DEFAULT_DESTINATION + '/CampusNet';
+    }
     if (!path && !this.props.destination) {
       this.props.flashMessageFor("Choose a destination to get started", "error");
     } else if (path) {
