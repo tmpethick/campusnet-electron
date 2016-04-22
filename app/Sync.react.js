@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import shallowEqual from 'react-pure-render/shallowEqual';
 import Component from 'react-pure-render/component';
 import Immutable from 'immutable';
+import {shell, remote} from 'electron';
 import {isAuthenticated} from './store/helpers';
 import CNClient from './campusnet/campusnet-client';
 import {download} from './campusnet/downloader';
@@ -26,24 +27,39 @@ class Sync extends Component {
     user: PropTypes.instanceOf(Immutable.Map).isRequired,
     path: PropTypes.string,
     interval: PropTypes.string,
+    isSyncing: PropTypes.bool,
     syncStart: PropTypes.func,
     syncStop: PropTypes.func
   };
 
   static childContextTypes = {
-    forceCampusnetSync: PropTypes.func
+    forceCampusnetSync: PropTypes.func,
+    syncAndOpenFolder: PropTypes.func
   }
 
   getChildContext() {
-    return {forceCampusnetSync: this.sync};
+    return {
+      forceCampusnetSync: this.sync,
+      syncAndOpenFolder: this.openFolder
+    };
   }
+
+  openFolder = () => {
+    if (this.props.path) {
+      if (!this.props.isSyncing) this.sync();
+      shell.openItem(this.props.path);
+      remote.getCurrentWindow().hide();
+    }
+  };
 
   componentDidMount() {
     this.client = new CNClient();
-    this.changeClient({}, this.props);
   }
 
   componentWillUpdate(nextProps) {
+    // Don't update if only sync status has changed.
+    if (nextProps.isSyncing !== this.props.isSyncing)
+      return;
     this.changeClient(this.props, nextProps);
   }
 
@@ -110,7 +126,8 @@ export default connect(
     user: state.get('auth').get('user') || Immutable.Map(),
     isAuthenticated: isAuthenticated(state),
     path: state.get('destination'),
-    interval: state.get('sync').get('interval')
+    interval: state.get('sync').get('interval'),
+    isSyncing: state.get('sync').get('isSyncing')
   }),
   (dispatch) => bindActionCreators(Actions, dispatch)
 )(Sync);
