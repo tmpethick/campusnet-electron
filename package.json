@@ -25,6 +25,7 @@
     "electron"
   ],
   "dependencies": {
+    "auto-launch": "^2.0.1",
     "bluebird": "^3.2.1",
     "cheerio": "^0.20.0",
     "cron": "^1.1.0",
