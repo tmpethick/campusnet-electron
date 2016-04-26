@@ -1,14 +1,14 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './app/entry.js',
+  entry: './src/entry.js',
   target: 'electron',
 
   output: {
     filename: 'bundle.js',
-    path: __dirname + '/build',
+    path: __dirname + '/app/app',
     publicPath: process.env.NODE_ENV === 'development' ?
-      'http://localhost:8080/build/' : '../build/'
+      'http://localhost:8080/app/' : '../app/app/'
   },
 
   plugins: [
