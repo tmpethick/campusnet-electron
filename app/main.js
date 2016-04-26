@@ -19,7 +19,7 @@ const menu = MenuBar({
   width: 360,
   height: 250,
   icon: path.join(__dirname, 'logo', 'menuIconTemplate.png'),
-  index: `file://${__dirname}/app/index.html`,
+  index: `file://${__dirname}/index.html`,
   'preload-window': true,
   resizable: false,
   'always-on-top': process.env.NODE_ENV === 'development'

@@ -17,6 +17,7 @@ This project was meant as a way to play around with electron development with re
 * overly complicated with reflux/flux (actions and reducers)
 * electron is big..
 
-
-
-
+```
+npm run build
+electron-release --app release/CampusNetSync-darwin-x64/CampusNetSync.app
+```

@@ -6,9 +6,9 @@
 <body>
     <div id="app"></div>
     <script>
-    var bundlePath = '../build/bundle.js';
+    var bundlePath = 'app/bundle.js';
     if(typeof process !== 'undefined' && process.env.NODE_ENV === 'development') {
-        bundlePath = 'http://localhost:8080/build/bundle.js';
+        bundlePath = 'http://localhost:8080/app/bundle.js';
     }
     var bundleScriptEl = document.createElement('script');
     bundleScriptEl.src = bundlePath;
