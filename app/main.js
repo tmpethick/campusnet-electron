@@ -4,6 +4,7 @@ const path = require('path');
 const MenuBar = require('menubar');
 const AutoLaunch = require('auto-launch');
 const GhReleases = require('electron-gh-releases')
+const dialog = require('electron').dialog;
 
 //if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
@@ -43,24 +44,35 @@ appLauncher.isEnabled().then(function(enabled){
 
 // Updater
 const updater = new GhReleases({
-  repo: 'jenslind/electron-gh-releases',
+  repo: 'tmpethick/campusnet-electron',
   currentVersion: menu.app.getVersion()
-})
+});
 
 // Check for updates
 // `status` returns true if there is a new update available
 updater.check((err, status) => {
   if (!err && status) {
     // Download the update
-    updater.download()
+    updater.download();
   }
-})
+});
 
 // When an update has been downloaded
 updater.on('update-downloaded', (info) => {
-  // Restart the app and install the update
-  updater.install()
-})
+  dialog.showMessageBox({
+    type: 'question',
+    buttons: ['Update & Restart', 'Cancel'],
+    title: 'Update Available',
+    cancelId: 99,
+    message: 'There is an update available. Would you like to update CampusNetSync now?'
+  }, function (response) {
+    console.log('Exit: ' + response);
+    if (response === 0) {
+      // Restart the app and install the update
+      updater.install();
+    }
+  });
+});
 
 // Access electrons autoUpdater
 updater.autoUpdater;

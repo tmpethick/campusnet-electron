@@ -3,6 +3,6 @@ react-devtools
 release
 
 npm-debug.log
-.env
+.config
 dist
 app/app

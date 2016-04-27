@@ -22,10 +22,9 @@
     "test": "mocha --watch",
     "test-debug": "node --harmony $(which bugger) ./node_modules/mocha/bin/_mocha --watch",
     "compile": "NODE_ENV=production webpack -p",
-    "pack": "node env.js && npm run compile && build",
-    "release": "node env.js && npm run compile && build",
-    "dist": "node env.js && npm run compile && build",
-    "dist:win64": "./node_modules/.bin/build --platform win32 --arch x64"
+    "pack": "source .config && npm run compile && build --arch x64 --platform darwin win32",
+    "release": "source .config && npm run compile && build --dist --arch x64 --platform darwin win32 --publish always",
+    "dist": "source .config && npm run compile && build --arch x64 --platform darwin win32"
   },
   "build": {
     "app-bundle-id": "dk.pethick.campusnetsync.mac",
@@ -67,7 +66,6 @@
     "babel-preset-stage-2": "^6.3.13",
     "chai": "^3.5.0",
     "css-loader": "^0.21.0",
-    "dotenv": "^2.0.0",
     "electron-builder": "^3.9.0",
     "electron-packager": "^5.0.0",
     "electron-prebuilt": "^0.36.7",
