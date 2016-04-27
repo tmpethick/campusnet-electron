@@ -8,7 +8,7 @@ module.exports = {
     filename: 'bundle.js',
     path: __dirname + '/app/app',
     publicPath: process.env.NODE_ENV === 'development' ?
-      'http://localhost:8080/app/' : '../app/app/'
+      'http://localhost:8080/app/' : 'app/'
   },
 
   plugins: [
