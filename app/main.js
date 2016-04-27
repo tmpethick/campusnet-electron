@@ -4,7 +4,9 @@ const path = require('path');
 const MenuBar = require('menubar');
 const AutoLaunch = require('auto-launch');
 const GhReleases = require('electron-gh-releases')
-const dialog = require('electron').dialog;
+const electron = require('electron');
+const dialog = electron.dialog;
+const ipcMain = electron.ipcMain;
 
 //if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
@@ -28,6 +30,10 @@ const menu = MenuBar({
 
 menu.on('ready', () => {
   menu.tray.setToolTip('CampusNet Sync');
+});
+
+ipcMain.on('show-menubar', function() {
+  menu.showWindow();
 });
 
 
