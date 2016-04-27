@@ -7,6 +7,8 @@ import {shell, remote} from 'electron';
 import {isAuthenticated} from './store/helpers';
 import CNClient from './campusnet/campusnet-client';
 import {download} from './campusnet/downloader';
+import fs from 'fs';
+import path from 'path';
 import mv from 'mv';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -47,7 +49,12 @@ class Sync extends Component {
   openFolder = () => {
     if (this.props.path) {
       if (!this.props.isSyncing) this.sync();
-      shell.openItem(this.props.path);
+      const subPaths = fs.readdirSync(this.props.path);
+      const path_ = subPaths.length > 0 ? 
+        path.join(this.props.path, subPaths[0]) 
+        : this.props.path;
+      console.log(path_);
+      shell.showItemInFolder(path_);
       remote.getCurrentWindow().hide();
     }
   };
