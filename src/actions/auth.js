@@ -5,10 +5,10 @@ import {flashMessageFor} from './flash';
 export const AUTH_USER = 'AUTH_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
-export function authUser({username, PApassword}) {
+export function authUser({username, password, PApassword}) {
   return {
     type: AUTH_USER,
-    user: {username, PApassword}
+    user: {username, password, PApassword}
   }
 };
 
@@ -20,7 +20,7 @@ export function login({username, password}) {
   return (dispatch, getState) => {
     return CNClient.login(username, password)
       .then(PApassword => {
-        dispatch(authUser({username, PApassword}));
+        dispatch(authUser({username, password, PApassword}));
         return Promise.resolve(true);
       })
       .catch(err => {

@@ -1,12 +1,11 @@
-import {download, downloadFile, newestVersionExists} from '../app/campusnet/downloader';
-import CNClient from '../app/campusnet/campusnet-client';
-import {xmlParser, getFilesFromXML, getModifiedDate} from '../app/campusnet/xmlParser';
+import {download, downloadFile, newestVersionExists} from '../src/campusnet/downloader';
+import CNClient from '../src/campusnet/campusnet-client';
+import {xmlParser, getFilesFromXML, getModifiedDate} from '../src/campusnet/xmlParser';
 import Promise from 'bluebird';
 import path from 'path';
 
 describe('CampusNet Client', function() {
-
-  /*
+/*
   it('should login fetcher', function(done) {
     CNClient.login('s144448', 'wBA49deM')
       .then((PApassword) => new CNClient('s144448', PApassword))
@@ -15,9 +14,29 @@ describe('CampusNet Client', function() {
         done()
       });
   });
-  */
+*/
 
-  /*
+  it('should throw error on wrong PAPassword downloading all files', function(done) {
+    const client = new CNClient('s144448', 'bla');
+    download(client, path.join(__dirname, 'downloads'))
+      .catch((err) => done());
+  });
+
+  it('should throw error on wrong PAPassword downloading one file', function(done) {
+    const client = new CNClient('s144448', 'bla');
+    downloadFile({
+      client, 
+      rootPath: path.join(__dirname, 'downloads'), 
+      element: {id: "495445", name: "TestFolder"}, 
+      file: {
+        id: "3902993",
+        path: ["Materials", "AlgorithmDesign.pdf"],
+        modifiedDate: new Date(10)
+      }
+    }).catch((err) => done())
+  });
+
+/*
   it('should download one file', function(done) {
     CNClient.login('s144448', 'wBA49deM')
       .then((PApassword) => new CNClient('s144448', PApassword))
@@ -38,7 +57,7 @@ describe('CampusNet Client', function() {
         done();
       })
   });
-  */
+*/
 
   it('should newest', function(done) {
     newestVersionExists(

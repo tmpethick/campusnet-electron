@@ -7,12 +7,14 @@ import {shell, remote} from 'electron';
 import {isAuthenticated} from './store/helpers';
 import CNClient from './campusnet/campusnet-client';
 import {download} from './campusnet/downloader';
+import CampusError, {VALIDATION_ERROR} from './campusnet/errors';
 import fs from 'fs';
 import path from 'path';
 import mv from 'mv';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from './actions/sync';
+import {login} from './actions/auth';
 import {CronJob} from 'cron';
 
 function moveFolder(oldPath, newPath) {
@@ -31,7 +33,8 @@ class Sync extends Component {
     interval: PropTypes.string,
     isSyncing: PropTypes.bool,
     syncStart: PropTypes.func,
-    syncStop: PropTypes.func
+    syncStop: PropTypes.func,
+    login: PropTypes.func
   };
 
   static childContextTypes = {
@@ -81,7 +84,6 @@ class Sync extends Component {
     if (!oldProps.user.equals(newProps.user)) {
       const {username, PApassword} = newProps.user.toJS();
       this.client.initialize(username, PApassword);
-      // TODO: clear folder?
     }
 
     if (this.shouldSync(newProps)) {
@@ -111,8 +113,17 @@ class Sync extends Component {
   };
 
   syncWithProps = async (props) => {
-    if (this.shouldSync(props))
-      await download(this.client, props.path);
+    if (this.shouldSync(props)) {
+      try {
+        await download(this.client, props.path);
+      } catch (err) {
+        if (err.type === VALIDATION_ERROR) {
+          const username = this.props.user.get('username');
+          const password = this.props.user.get('password');
+          this.props.login({username, password});
+        }
+      }
+    }
     this.props.syncStop();
   }
 
@@ -136,5 +147,5 @@ export default connect(
     interval: state.get('sync').get('interval'),
     isSyncing: state.get('sync').get('isSyncing')
   }),
-  (dispatch) => bindActionCreators(Actions, dispatch)
+  (dispatch) => bindActionCreators({login, ...Actions}, dispatch)
 )(Sync);
