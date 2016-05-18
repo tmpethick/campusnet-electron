@@ -66,7 +66,13 @@ export default class CNClient {
     let promise = fetch(url, Object.assign({
       method: 'get'
     }, options))
-
+    promise = promise.then(res => {
+      if (res.status === 401)
+        throw new CampusError(
+          'Username and password did not match', 
+          VALIDATION_ERROR);
+      return res;
+    });
     if (parse)
       // TODO: error handling on Error tagName
       promise = promise
@@ -98,7 +104,9 @@ export default class CNClient {
       .then($ => getFilesFromXML($))
   }
 
-  downloadFile(elementId, fileId, downloadPath) {
+  downloadFile(elementId, fileId, downloadPath, blocker) {
+    if (blocker && blocker.isBlocked())
+      return Promise.resolve();
     const url = `${BASE_URL}/Elements/${elementId}/Files/${fileId}/Bytes`;
     return this.authRequest(url, {}, false)
       .then(res => {
