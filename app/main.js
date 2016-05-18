@@ -8,6 +8,7 @@ const electron = require('electron');
 const dialog = electron.dialog;
 const ipcMain = electron.ipcMain;
 const promoteWindowsTrayItems = require('electron-promote-windows-tray-items');
+const startupHandler = require('./startupHandler');
 
 //if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
@@ -28,6 +29,10 @@ const menu = MenuBar({
   resizable: false,
   'always-on-top': process.env.NODE_ENV === 'development'
 });
+
+if (startupHandler(menu.app)) {
+  return;
+}
 
 // Promote the app to the toolbar itself on windows.
 if (process.platform === 'win32') {
@@ -87,4 +92,4 @@ updater.on('update-downloaded', (info) => {
 });
 
 // Access electrons autoUpdater
-updater.autoUpdater;
+// updater.autoUpdater;
