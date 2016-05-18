@@ -7,6 +7,7 @@ const GhReleases = require('electron-gh-releases')
 const electron = require('electron');
 const dialog = electron.dialog;
 const ipcMain = electron.ipcMain;
+const promoteWindowsTrayItems = require('electron-promote-windows-tray-items');
 
 //if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
@@ -27,6 +28,11 @@ const menu = MenuBar({
   resizable: false,
   'always-on-top': process.env.NODE_ENV === 'development'
 });
+
+// Promote the app to the toolbar itself on windows.
+if (process.platform === 'win32') {
+  promoteWindowsTrayItems(function(err) {});
+}
 
 menu.on('ready', () => {
   menu.tray.setToolTip('CampusNet Sync');
