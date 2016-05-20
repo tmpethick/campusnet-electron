@@ -35,6 +35,19 @@ if (startupHandler(menu.app)) {
   return;
 }
 
+// Prevent multiple instances on Windows.
+const shouldQuit = menu.app.makeSingleInstance((commandLine, workingDirectory) => {
+  // Someone tried to run a second instance, we should focus our window.
+  if (menu.window) {
+    menu.showWindow();
+  }
+});
+
+if (shouldQuit) {
+  menu.app.quit();
+  return;
+}
+
 // Promote the app to the toolbar itself on windows.
 /*if (process.platform === 'win32') {
   promoteWindowsTrayItems(function(err) {});
