@@ -1,3 +1,14 @@
+var path = require('path');
+var cp = require('child_process');
+
+function executeSquirrelCommand(args, done) {
+  var updateDotExe = path.resolve(path.dirname(process.execPath), 
+     '..', 'update.exe');
+  var child = cp.spawn(updateDotExe, args, { detached: true });
+  child.on('close', function(code) {
+     done();
+  });
+};
 
 module.exports = function(app) {
   if (process.platform !== 'win32') {
@@ -17,16 +28,14 @@ module.exports = function(app) {
       //   explorer context menus
 
       // Always quit when done
-      app.quit();
-
+      var target = path.basename(process.execPath);
+      executeSquirrelCommand(["--createShortcut", target], app.quit);
       return true;
     case '--squirrel-uninstall':
       // Undo anything you did in the --squirrel-install and
       // --squirrel-updated handlers
-
-      // Always quit when done
-      app.quit();
-
+      var target = path.basename(process.execPath);
+      executeSquirrelCommand(["--removeShortcut", target], app.quit);
       return true;
     case '--squirrel-obsolete':
       // This is called on the outgoing version of your app before
