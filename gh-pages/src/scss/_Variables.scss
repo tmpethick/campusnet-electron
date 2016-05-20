@@ -1,0 +1,25 @@
+
+// Variables
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// Colors
+$color-initial: #ffffff;
+$color-primary: #CA1616;
+$color-secondary: #FF9360;
+$color-tertiary: #f4f5f6;
+$color-quaternary: #d1d1d1;
+$body-color: lighten(black, 30%);
+
+// Greys
+$grey-middle: darken(white, 20%);
+
+// Flash colors
+$color-success: #63BE03;
+$color-success-border: #2D9600;
+
+$color-error: adjust_hue($color-success, 272);
+$color-error-border: adjust_hue($color-success-border, 272);
+
+// Fonts
+$font-primary: "Open Sans", 'Helvetica Neue', Helvetica, sans-serif;
+$font-secondary: Lato;

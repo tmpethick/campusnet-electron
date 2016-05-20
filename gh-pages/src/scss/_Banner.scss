@@ -1,0 +1,30 @@
+$screen-sm-max : 830px;
+$screen-xs-max: 510px;
+
+.banner {
+    background-color: $color-primary;
+    text-align: center;
+    color: white;
+    padding: 100px 10px;
+    
+    &-logo {
+        display: inline-block;
+        width: 100px;
+        margin: 20px 0;
+        img {
+            width: 100%;
+        }
+    }
+
+    &-title {
+        font-size: 3rem;
+    }
+    
+    &-subtitle {
+        font-size: 1.8rem;
+    }
+    
+    .btn {
+        color: $color-primary;
+    }
+ }
