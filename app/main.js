@@ -36,9 +36,9 @@ if (startupHandler(menu.app)) {
 }
 
 // Promote the app to the toolbar itself on windows.
-if (process.platform === 'win32') {
+/*if (process.platform === 'win32') {
   promoteWindowsTrayItems(function(err) {});
-}
+}*/
 
 menu.on('ready', () => {
   menu.tray.setToolTip('CampusNet Sync');
