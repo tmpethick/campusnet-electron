@@ -24,7 +24,8 @@
     "compile": "NODE_ENV=production webpack -p",
     "pack": "source .config && npm run compile && build --arch all --platform darwin win32",
     "release": "source .config && npm run compile && build --dist --arch all --platform darwin win32 --publish always",
-    "dist": "source .config && npm run compile && build --arch all --platform darwin win32"
+    "dist": "source .config && npm run compile && build --arch all --platform darwin win32",
+    "publish-gh-pages": "git subtree push --prefix gh-pages/build origin gh-pages"
   },
   "build": {
     "app-bundle-id": "dk.pethick.campusnetsync.mac",
