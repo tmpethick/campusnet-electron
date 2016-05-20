@@ -1,0 +1,11 @@
+// Link
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+a, 
+.link {
+  color: darken($color-primary, 10%);
+  text-decoration: none;
+  &:hover {
+    border-bottom: 1px solid darken($color-primary, 10%);
+  }
+}

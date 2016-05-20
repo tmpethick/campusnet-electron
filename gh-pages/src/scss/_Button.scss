@@ -1,0 +1,59 @@
+// Button
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// button reset
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.btn,
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  background-color: $color-primary;
+  border: 0.1rem solid $color-primary;
+  border-radius: 0.3rem;
+  box-sizing: border-box;
+  color: $color-initial;
+  display: inline-block;
+  font-family: $font-secondary;
+  font-size: 1.3rem;
+  font-weight: 700;
+  height: 4rem;
+  letter-spacing: 0.1rem;
+  line-height: 4rem;
+  padding: 0 4rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-top: 5px;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    background-color: darken($color-primary, 5%);
+    border-color: darken($color-primary, 5%);
+    color: $color-initial;
+    outline: 0;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+
+  &,
+  &:active {
+    box-shadow: none;
+  }
+
+  &.btn-white {
+    background-color: white;
+    border: none;
+    color: #555;
+  }
+
+  &.btn-block {
+    display: block;
+    width: 100%;
+  }
+
+}

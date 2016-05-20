@@ -1,0 +1,49 @@
+
+.flash-container {
+    z-index: $z-index-flash;
+    position: absolute;
+    margin-top: -15px;
+    padding: 0 20px;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+
+    &-enter,
+    &-leave.flash-container-leave-active {      
+        opacity: 0;
+        transform: translateX(-50%) scale(0.8);
+    }
+
+    &-leave,
+    &-enter.flash-container-enter-active {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    &-enter.flash-container-enter-active,
+    &-leave.flash-container-leave-active {
+      transition: all 200ms ease-in;
+    }
+}
+
+.flash {
+    display: inline-block;
+    font-size: 1.4rem;
+    color: white;
+    padding: 2px 14px;
+    opacity: 0.75;
+    border: 1px solid white;
+    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.24);
+    border-radius: 8px;
+}
+
+.flash-success {
+    background: $color-success;
+    border-color: $color-success-border;
+}
+
+.flash-error {
+    background: $color-error;
+    border-color: $color-error-border;
+}

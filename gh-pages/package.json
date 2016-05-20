@@ -1,0 +1,17 @@
+{
+  "name": "campusnet-electron-landing",
+  "version": "0.0.1",
+  "description": "CampusNet Sync landing page",
+  "author": "Thomas Pethick",
+  "devDependencies": {},
+  "dependencies": {
+    "handlebars": "^4.0.5",
+    "metalsmith": "^2.1.0",
+    "metalsmith-in-place": "^1.4.4",
+    "metalsmith-layouts": "^1.6.5",
+    "metalsmith-rootpath": "^0.1.7",
+    "metalsmith-sense-sass": "^1.1.0",
+    "metalsmith-serve": "0.0.7",
+    "metalsmith-watch": "^1.0.1"
+  }
+}
