@@ -9,6 +9,7 @@ const dialog = electron.dialog;
 const ipcMain = electron.ipcMain;
 const promoteWindowsTrayItems = require('electron-promote-windows-tray-items');
 const startupHandler = require('./startupHandler');
+const open = require('open');
 
 //if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
@@ -70,10 +71,22 @@ const updater = new GhReleases({
 updater.check((err, status) => {
   if (!err && status) {
     // Download the update
-    updater.download();
+    // updater.download();
+    dialog.showMessageBox({
+      type: 'question',
+      buttons: ['Get update', 'Cancel'],
+      title: 'Update Available',
+      cancelId: 99,
+      message: 'There is an update available. Go get it!'
+    }, function (response) {
+      if (response === 0) {
+        open('http://pethick.dk/campusnet-electron/');
+      }
+    });
   }
 });
 
+/*
 // When an update has been downloaded
 updater.on('update-downloaded', (info) => {
   dialog.showMessageBox({
@@ -93,3 +106,4 @@ updater.on('update-downloaded', (info) => {
 
 // Access electrons autoUpdater
 // updater.autoUpdater;
+*/
