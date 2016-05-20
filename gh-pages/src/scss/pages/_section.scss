@@ -34,6 +34,7 @@
     }
 }
 
+
 .section-screenshot {
     margin: 0 auto;
     max-width: 600px;
@@ -42,14 +43,21 @@
     img {
         width: 100%;
     }
+}
     
 
-    @media (min-width: 900px) {
+@media (min-width: 900px) {
+    .section-screenshot {
         float: right;
         margin-right: -120px;
     }
+    .section-content {
+        max-width: 550px;
+    }
+}
 
-    @media (min-width: 1000px) {
-        margin-right: 0;
+@media (min-width: 1000px) {
+    .section-screenshot {
+        margin-right: -50px;
     }
 }
