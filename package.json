@@ -29,7 +29,9 @@
   "build": {
     "app-bundle-id": "dk.pethick.campusnetsync.mac",
     "app-category-type": "public.app-category.utilities",
-    "extraResources": ["app/app"],
+    "extraResources": [
+      "app/app"
+    ],
     "osx": {
       "contents": [
         {
