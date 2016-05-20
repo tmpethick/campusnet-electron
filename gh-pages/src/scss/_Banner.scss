@@ -28,3 +28,46 @@ $screen-xs-max: 510px;
         color: $color-primary;
     }
  }
+
+.banner-download-notice {
+    margin: 10px;
+    font-size: 1rem;
+
+    a {
+        color: white;
+        font-style: italic;
+    
+        &:hover {
+            border-bottom: 1px solid white;
+        }
+    }
+}
+
+.banner-logo,
+.banner-title,
+.banner-subtitle,
+.banner .btn,
+.banner-download-notice,
+.section {
+    opacity: 0;
+    transition: opacity 1s, transform 1s;
+    transform: translateY(-20px);
+
+    .loaded & {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+.banner-logo {transition-delay: 0s;}
+.banner-title {transition-delay: 0.1s;}
+.banner-subtitle {transition-delay: 0.2s;}
+.banner .btn {
+    transition: opacity 1s, transform 1s, box-shadow 0.2s;
+    transition-delay: 0.3s, 0.3s, 0s;
+}
+.banner-download-notice {transition-delay: 0.3s;}
+.section {
+    transform: translateY(0px);
+    transition-delay: 0.4s;
+}

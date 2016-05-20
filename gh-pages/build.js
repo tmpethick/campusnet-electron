@@ -5,6 +5,8 @@ var senseSass = require('metalsmith-sense-sass');
 var watch = require('metalsmith-watch');
 var serve = require('metalsmith-serve');
 var rootPath = require('metalsmith-rootpath');
+var webpack = require('metalsmith-webpack');
+var path = require('path');
 
 Metalsmith(__dirname)
   .use(senseSass({
@@ -23,6 +25,22 @@ Metalsmith(__dirname)
       livereload: true,
     })
   )
+  .use(webpack({
+    context: path.resolve(__dirname, './src/js/'),
+    entry: './index.js',
+    output: {
+      path: path.resolve(__dirname, './build/js/'),
+      filename: 'bundle.js'
+    },
+    module: {
+      loaders: [
+        { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      ]
+    },
+    resolveLoader: { root: path.join(__dirname, "node_modules") },
+    resolve: { modulesDirectories: ['node_modules'] }
+
+  }))
   .use(rootPath())
   .use(layouts({
       "engine": "handlebars"

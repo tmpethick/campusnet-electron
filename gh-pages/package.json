@@ -5,6 +5,9 @@
   "author": "Thomas Pethick",
   "devDependencies": {},
   "dependencies": {
+    "babel-core": "^6.9.0",
+    "babel-loader": "^6.2.4",
+    "babel-polyfill": "^6.9.0",
     "handlebars": "^4.0.5",
     "metalsmith": "^2.1.0",
     "metalsmith-in-place": "^1.4.4",
@@ -12,6 +15,8 @@
     "metalsmith-rootpath": "^0.1.7",
     "metalsmith-sense-sass": "^1.1.0",
     "metalsmith-serve": "0.0.7",
-    "metalsmith-watch": "^1.0.1"
+    "metalsmith-watch": "^1.0.1",
+    "metalsmith-webpack": "^1.0.3",
+    "reqwest": "^2.0.5"
   }
 }
