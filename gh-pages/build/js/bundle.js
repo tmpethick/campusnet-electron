@@ -86,20 +86,20 @@
 	      platform: 'Mac OS X',
 	      link: asset.browser_download_url
 	    };
-	  } else if (isWin32()) {
-	    var asset = release.assets.find(function (a) {
-	      return a.browser_download_url.endsWith('ia32.exe');
-	    });
-	    return {
-	      platform: 'Windows 32-bit',
-	      link: asset.browser_download_url
-	    };
 	  } else if (isWin64()) {
 	    var asset = release.assets.find(function (a) {
 	      return a.browser_download_url.endsWith('.exe') && !a.browser_download_url.endsWith('ia32.exe');
 	    });
 	    return {
 	      platform: 'Windows 64-bit',
+	      link: asset.browser_download_url
+	    };
+	  } else if (isWin32()) {
+	    var asset = release.assets.find(function (a) {
+	      return a.browser_download_url.endsWith('ia32.exe');
+	    });
+	    return {
+	      platform: 'Windows 32-bit',
 	      link: asset.browser_download_url
 	    };
 	  } else {
@@ -110,11 +110,11 @@
 	var isMac = function isMac() {
 	  return navigator.appVersion.indexOf("Mac") != -1;
 	};
-	var isWin32 = function isWin32() {
-	  return navigator.userAgent.indexOf("WOW64") != -1;
-	};
 	var isWin64 = function isWin64() {
-	  return navigator.userAgent.indexOf("Win64") != -1;
+	  return navigator.userAgent.indexOf("WOW64") != -1 || navigator.userAgent.indexOf("Win64") != -1;
+	};
+	var isWin32 = function isWin32() {
+	  return navigator.platform.indexOf('Win') != -1;
 	};
 
 	var createLinkElement = function createLinkElement(text, href) {
