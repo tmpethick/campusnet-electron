@@ -1,7 +1,7 @@
 {
   "name": "campusnet-electron",
   "productName": "CampusNetSync",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Sync CampusNet files to your computer",
   "main": "main.js",
   "author": "Thomas Pethick",
