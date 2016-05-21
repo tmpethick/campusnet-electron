@@ -49,7 +49,6 @@ class Header extends Component {
           </div>
           <div className="header-right">
             <Dropdown>
-              {isAuth ? <Link to="/preference">Preference</Link> : ''}
               <Link to="/" onClick={this.props.logoutUser}>
                 Logout
               </Link>
