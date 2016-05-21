@@ -111,10 +111,10 @@
 	  return navigator.appVersion.indexOf("Mac") != -1;
 	};
 	var isWin32 = function isWin32() {
-	  return navigator.userAgent.indexOf("WOW64");
+	  return navigator.userAgent.indexOf("WOW64") != -1;
 	};
 	var isWin64 = function isWin64() {
-	  return navigator.userAgent.indexOf("Win64");
+	  return navigator.userAgent.indexOf("Win64") != -1;
 	};
 
 	var createLinkElement = function createLinkElement(text, href) {

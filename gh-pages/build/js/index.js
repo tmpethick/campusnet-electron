@@ -53,8 +53,8 @@ const getPlatformLink = (release) => {
 };
 
 const isMac = () => navigator.appVersion.indexOf("Mac")!=-1;
-const isWin32 = () => navigator.userAgent.indexOf("WOW64");
-const isWin64 = () => navigator.userAgent.indexOf("Win64");
+const isWin32 = () => navigator.userAgent.indexOf("WOW64") != -1;
+const isWin64 = () => navigator.userAgent.indexOf("Win64") != -1;
 
 const createLinkElement = (text, href) => {
   const $a = document.createElement("a");
