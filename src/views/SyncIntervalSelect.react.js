@@ -12,6 +12,7 @@ export const SYNC_OPTIONS = [
   {name: 'Every 15 min', value: '0 */15 * * * *'},
   {name: 'Every hour', value: '0 0 */1 * * *'},
   {name: 'Every second hour', value: '0 0 */2 * * *'},
+  {name: 'Daily', value: '0 0 9 * * *'},
 ];
 
 class SyncIntervalSelect extends Component {
