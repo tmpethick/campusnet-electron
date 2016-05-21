@@ -32,12 +32,6 @@ const getPlatformLink = (release) => {
         platform: 'Mac OS X',
         link: asset.browser_download_url
       };
-  } else if (isWin32()) {
-    const asset = release.assets.find(a => a.browser_download_url.endsWith('ia32.exe'));
-    return {
-      platform: 'Windows 32-bit',
-      link: asset.browser_download_url
-    };
   } else if (isWin64()) {
     const asset = release.assets.find(a => {
       return a.browser_download_url.endsWith('.exe')
@@ -47,14 +41,21 @@ const getPlatformLink = (release) => {
       platform: 'Windows 64-bit',
       link: asset.browser_download_url
     };    
+  } else if (isWin32()) {
+    const asset = release.assets.find(a => a.browser_download_url.endsWith('ia32.exe'));
+    return {
+      platform: 'Windows 32-bit',
+      link: asset.browser_download_url
+    };
   }else {
     return null;
   }
 };
 
 const isMac = () => navigator.appVersion.indexOf("Mac")!=-1;
-const isWin32 = () => navigator.userAgent.indexOf("WOW64") != -1;
-const isWin64 = () => navigator.userAgent.indexOf("Win64") != -1;
+const isWin64 = () => navigator.userAgent.indexOf("WOW64") != -1 || 
+                      navigator.userAgent.indexOf("Win64") != -1;
+const isWin32 = () => navigator.platform.indexOf('Win') != -1;
 
 const createLinkElement = (text, href) => {
   const $a = document.createElement("a");
