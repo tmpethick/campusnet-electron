@@ -5,11 +5,23 @@ import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import {changeDestination} from '../actions/destination';
 import {flashMessageFor} from '../actions/flash';
-
+import Promise from 'bluebird';
+import fs from 'fs';
 const {dialog, app} = remote;
 
+// Prepare
+Promise.promisifyAll(fs);
+
+// Constants
 export const DEFAULT_DESTINATION = app.getPath('documents');
 
+// Helpers
+const validFolder = async (path) => {
+  const isDir = (await fs.statAsync(path)).isDirectory();
+  return isDir && ((await fs.readdirAsync(path)).length === 0);
+};
+
+// Component
 class FolderPicker extends Component {
   static propTypes = {
     chooseFolder: React.PropTypes.bool
@@ -19,11 +31,9 @@ class FolderPicker extends Component {
     syncAndOpenFolder: React.PropTypes.func
   };
 
-  selectFolder = () => {
+  selectFolder = async () => {
     let path = dialog.showOpenDialog({
       title: 'Create destination',
-      // Add `2` to path so that that `PATH/Untitled` is not 
-      // suggested in the folder picker.
       defaultPath: this.props.destination || DEFAULT_DESTINATION,
       properties: ['openDirectory', 'createDirectory']
     });
@@ -33,6 +43,8 @@ class FolderPicker extends Component {
     }
     if (!path && !this.props.destination) {
       this.props.flashMessageFor("Choose a destination to get started", "error");
+    } else if (path && !(await validFolder(path))) {
+      dialog.showErrorBox('The folder has to be empty', 'Please create an empty folder for CampusNetSync. That way you will not accidentally lose any files.');
     } else if (path) {
       this.props.changeDestination(path);
       this.props.flashMessageFor("Destination folder was updated", "success");
