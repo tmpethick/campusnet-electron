@@ -35,7 +35,7 @@ npm start
 
 ## Tests
 
-Currently only the downloader module itself is tested.
+Currently only the downloader module itself is tested – and this is not at all properly covered. Run on own responsibility! There is no mocking done so it will actually download the files.
 
 ## Learnings
 
