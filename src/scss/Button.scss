@@ -63,6 +63,24 @@ input[type='submit'] {
     }
   }
 
+  &.button-light {
+    color: $color-grey-dark;
+    background-color: white;
+    border-color: rgba(0,0,0,0.15);
+    transition: box-shadow 0.2s;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+    }
+
+    &,
+    &:active {
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+  }
+
   // Button
   &.button-block {
     display: block;

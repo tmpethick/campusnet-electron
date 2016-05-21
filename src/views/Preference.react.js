@@ -5,6 +5,7 @@ import FolderPicker from './FolderPicker.react';
 import SyncIntervalSelect from './SyncIntervalSelect.react';
 import {connect} from 'react-redux';
 import Spinner from './Spinner.react';
+import open from 'open';
 
 class Preference extends Component {
   static PropTypes = {
@@ -24,8 +25,20 @@ class Preference extends Component {
       <div>
         <div className="container">
           <FolderPicker chooseFolder={chooseFolder}/>
-          <label>Sync interval</label>
-          <SyncIntervalSelect/>
+          <div className="row">
+            <div className="col">
+              <label>Sync interval</label>
+              <SyncIntervalSelect/>
+            </div>
+            <div className="col">
+              <label>Include old courses</label>
+              <button 
+                className="button button-block button-light"
+                onClick={() => open('https://www.campusnet.dtu.dk/cnnet/archive/archive.aspx')}>
+                  Add courses
+              </button>
+            </div>
+          </div>
         </div>
         <div className="footer">
           <button className="button button-block" 
