@@ -63,7 +63,9 @@ class Sync extends Component {
   };
 
   componentDidMount() {
+    const {username, PApassword} = this.props.user.toJS();
     this.client = new CNClient();
+    this.client.initialize(username, PApassword);
   }
 
   componentWillUpdate(nextProps) {
@@ -118,8 +120,8 @@ class Sync extends Component {
         await download(this.client, props.path);
       } catch (err) {
         if (err.type === VALIDATION_ERROR) {
-          const username = this.props.user.get('username');
-          const password = this.props.user.get('password');
+          const username = props.user.get('username');
+          const password = props.user.get('password');
           this.props.login({username, password});
         }
       }
