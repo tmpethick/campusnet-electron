@@ -8,6 +8,7 @@ import configureStore from './store/configureStore';
 import Sync from './Sync.react';
 import {isAuthenticated} from './store/helpers';
 import {ipcRenderer} from 'electron';
+import {flashMessageFor} from './actions/flash';
 
 // if (process.env.NODE_ENV === 'development')
 //  remote.BrowserWindow.addDevToolsExtension('react-devtools/shells/chrome');
@@ -18,6 +19,13 @@ const initialState = store.getState();
 if (!isAuthenticated(initialState)) {
   ipcRenderer.send('show-menubar');
 }
+
+ipcRenderer.on('check-update-response', (event, newUpdate) => {
+  if (newUpdate)
+    store.dispatch(flashMessageFor('Update is being downloaded.. Stand clear!', 'success'));
+  else
+    store.dispatch(flashMessageFor('You already have the newest version', 'error'));
+});
 
 ReactDOM.render(
   <Provider store={store}>

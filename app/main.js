@@ -3,13 +3,13 @@
 const path = require('path');
 const MenuBar = require('menubar');
 const AutoLaunch = require('auto-launch');
-const GhReleases = require('electron-gh-releases')
 const electron = require('electron');
 const dialog = electron.dialog;
 const ipcMain = electron.ipcMain;
 const promoteWindowsTrayItems = require('electron-promote-windows-tray-items');
 const startupHandler = require('./startupHandler');
 const open = require('open');
+const createUpdater = require('./updater');
 
 //if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
@@ -72,51 +72,20 @@ appLauncher.isEnabled().then(function(enabled){
   return appLauncher.enable()
 });
 
-
 // Updater
-const updater = new GhReleases({
-  repo: 'tmpethick/campusnet-electron',
-  currentVersion: menu.app.getVersion()
-});
+const updater = createUpdater(menu.app);
 
-// Check for updates
-// `status` returns true if there is a new update available
-updater.check((err, status) => {
-  if (!err && status) {
-    // Download the update
-    // updater.download();
-    dialog.showMessageBox({
-      type: 'question',
-      buttons: ['Get update', 'Cancel'],
-      title: 'Update Available',
-      cancelId: 99,
-      message: 'There is an update available. Go get it!'
-    }, function (response) {
-      if (response === 0) {
-        open('http://pethick.dk/campusnet-electron/');
+ipcMain.on('check-update', event => {
+  // `status` returns true if there is a new update available
+  updater.check((err, status) => {
+    const newUpdate = !err && status;
+    if (newUpdate) {
+      try {
+        updater.download();
+      } catch (e) {
+        console.log('Already checking for updates..');
       }
-    });
-  }
-});
-
-/*
-// When an update has been downloaded
-updater.on('update-downloaded', (info) => {
-  dialog.showMessageBox({
-    type: 'question',
-    buttons: ['Update & Restart', 'Cancel'],
-    title: 'Update Available',
-    cancelId: 99,
-    message: 'There is an update available. Would you like to update CampusNetSync now?'
-  }, function (response) {
-    console.log('Exit: ' + response);
-    if (response === 0) {
-      // Restart the app and install the update
-      updater.install();
     }
+    event.sender.send('check-update-response', newUpdate);
   });
 });
-
-// Access electrons autoUpdater
-// updater.autoUpdater;
-*/

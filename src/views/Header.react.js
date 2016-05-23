@@ -5,8 +5,9 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {logoutUser} from '../actions/auth';
-import {shell, remote} from 'electron';
+import {shell, remote, ipcRenderer} from 'electron';
 import {isAuthenticated} from '../store/helpers';
+
 
 class Header extends Component {
   static PropTypes = {
@@ -22,6 +23,10 @@ class Header extends Component {
   openCampusnet() {
     shell.openExternal('https://www.campusnet.dtu.dk/cnnet/');
   }
+
+  checkUpdate = () => {
+    ipcRenderer.send('check-update');
+  };
 
   quitApp = () => {
     remote.app.quit();
@@ -52,6 +57,7 @@ class Header extends Component {
               <Link to="/" onClick={this.props.logoutUser}>
                 Logout
               </Link>
+              <button className="link" onClick={this.checkUpdate}>Update</button>
               <button className="link" onClick={this.quitApp}>Quit</button>
             </Dropdown>
           </div>
