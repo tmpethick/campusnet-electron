@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/tmpethick/campusnet-electron"
   },
-  "main": "main.js",
+  "main": "app/main.js",
   "author": {
     "name": "Thomas Pethick",
     "email": "tmpethick@gmail.com",
@@ -16,15 +16,16 @@
   "electronVersion": "0.36.7",
   "scripts": {
     "postinstall": "install-app-deps",
-    "clean": "rimraf dist",
     "start": "NODE_ENV=development electron ./app",
     "watch": "NODE_ENV=development webpack-dev-server --hot --inline",
     "test": "mocha --watch",
     "test-debug": "node --harmony $(which bugger) ./node_modules/mocha/bin/_mocha --watch",
     "compile": "NODE_ENV=production webpack -p",
     "pack": "source .config && npm run compile && build --arch all --platform darwin win32",
-    "release": "source .config && npm run compile && build --dist --arch all --platform darwin win32 --publish always",
     "dist": "source .config && npm run compile && build --arch all --platform darwin win32",
+    "release:osx": "source .config && npm run compile && build --dist --platform darwin --publish always",
+    "release:win": "source .config && npm run compile && build --dist --platform win32 --arch ia32 --publish always",
+    "release": "npm run release:osx && npm run release:win",
     "publish-gh-pages": "git subtree push --prefix gh-pages/build origin gh-pages"
   },
   "build": {
@@ -78,7 +79,6 @@
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.4",
-    "rimraf": "^2.5.2",
     "sass-loader": "^3.0.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.2",
