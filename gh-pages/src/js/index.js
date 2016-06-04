@@ -33,10 +33,12 @@ const getPlatformLink = (release) => {
         link: asset.browser_download_url
       };
   } else if (isWin64()) {
-    const asset = release.assets.find(a => {
-      return a.browser_download_url.endsWith('.exe')
-          && !a.browser_download_url.endsWith('ia32.exe');
-    });
+    // Use 32-bit version for now since auto update doesn't support both.
+    // const asset = release.assets.find(a => {
+    //   return a.browser_download_url.endsWith('.exe')
+    //       && !a.browser_download_url.endsWith('ia32.exe');
+    // });
+    const asset = release.assets.find(a => a.browser_download_url.endsWith('ia32.exe'));
     return {
       platform: 'Windows 64-bit',
       link: asset.browser_download_url
