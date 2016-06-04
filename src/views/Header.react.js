@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import {logoutUser} from '../actions/auth';
 import {shell, remote, ipcRenderer} from 'electron';
 import {isAuthenticated} from '../store/helpers';
+import open from 'open';
 
 
 class Header extends Component {
@@ -21,7 +22,11 @@ class Header extends Component {
   };
   
   openCampusnet() {
-    shell.openExternal('https://www.campusnet.dtu.dk/cnnet/');
+    open('https://www.campusnet.dtu.dk/cnnet/');
+  }
+
+  feedback() {
+    open('https://github.com/tmpethick/campusnet-electron/issues/new');
   }
 
   checkUpdate = () => {
@@ -58,6 +63,7 @@ class Header extends Component {
                 Logout
               </Link>
               <button className="link" onClick={this.checkUpdate}>Update</button>
+              <button className="link" onClick={this.feedback}>Feedback</button>
               <button className="link" onClick={this.quitApp}>Quit</button>
             </Dropdown>
           </div>
