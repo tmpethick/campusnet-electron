@@ -77,15 +77,19 @@ const updater = createUpdater(menu.app);
 
 ipcMain.on('check-update', event => {
   // `status` returns true if there is a new update available
-  updater.check((err, status) => {
-    const newUpdate = !err && status;
-    if (newUpdate) {
-      try {
-        updater.download();
-      } catch (e) {
-        console.log('Already checking for updates..');
+  try {
+    updater.check((err, status) => {
+      const newUpdate = !err && status;
+      if (newUpdate) {
+        try {
+          updater.download();
+        } catch (e) {
+          console.log('Already checking for updates..');
+        }
       }
-    }
-    event.sender.send('check-update-response', newUpdate);
-  });
+      event.sender.send('check-update-response', newUpdate);
+    });
+  } catch (e) {
+    console.log('Probably already checking for update');
+  }
 });
