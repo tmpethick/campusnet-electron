@@ -31,7 +31,6 @@ npm start
 
 ## Bugs
 
-* Misplaced menu bar position when not opened through tray icon click event – occures after download: https://github.com/maxogden/menubar/issues/69
 * Problem with auto-launch on Mac: https://github.com/Teamwork/node-auto-launch/issues/28
 
 ## Tests

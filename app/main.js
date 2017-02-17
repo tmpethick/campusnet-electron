@@ -11,10 +11,10 @@ const startupHandler = require('./startupHandler');
 const open = require('open');
 const createUpdater = require('./updater');
 
-//if (process.env.NODE_ENV === 'development')
+if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
 
-require('crash-reporter').start({
+electron.crashReporter.start({
   productName: 'CampusNetSync',
   companyName: 'Pethick',
   submitURL: 'https://pethick.dk',
@@ -57,7 +57,7 @@ menu.on('ready', () => {
   menu.tray.setToolTip('CampusNet Sync');
 });
 
-ipcMain.on('show-menubar', function() {
+ipcMain.on('show-menubar', function () {
   menu.showWindow();
 });
 
@@ -66,9 +66,9 @@ ipcMain.on('show-menubar', function() {
 var appLauncher = new AutoLaunch({
   name: 'CampusNetSync'
 });
- 
-appLauncher.isEnabled().then(function(enabled){
-  if(enabled) return;
+
+appLauncher.isEnabled().then(function (enabled) {
+  if (enabled) return;
   return appLauncher.enable()
 });
 
