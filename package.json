@@ -21,20 +21,22 @@
     "test": "mocha --watch",
     "test-debug": "node --harmony $(which bugger) ./node_modules/mocha/bin/_mocha --watch",
     "compile": "NODE_ENV=production webpack -p",
-    "pack": "source .config && npm run compile && build --arch all --platform darwin win32",
-    "dist": "source .config && npm run compile && build --arch all --platform darwin win32",
-    "release:osx": "source .config && npm run compile && build --dist --platform darwin --publish always",
-    "release:win": "source .config && npm run compile && build --dist --platform win32 --arch ia32 --publish always",
+    "pack": "source .config && npm run compile && build -mlw --dir",
+    "dist": "source .config && npm run compile && build -mlw",
+    "release:osx": "source .config && npm run compile && build --dist -mlw --publish always",
+    "release:win": "source .config && npm run compile && build --dist -mlw --publish always",
     "release": "npm run release:osx && npm run release:win",
     "publish-gh-pages": "git subtree push --prefix gh-pages/build origin gh-pages"
   },
   "build": {
-    "app-bundle-id": "dk.pethick.campusnetsync.mac",
-    "app-category-type": "public.app-category.utilities",
+    "appId": "dk.pethick.campusnetsync.mac",
     "extraResources": [
       "app/app"
     ],
-    "osx": {
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "dmg": {
       "contents": [
         {
           "x": 410,
