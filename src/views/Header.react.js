@@ -1,12 +1,12 @@
 import React from 'react';
 import Component from 'react-pure-render/component';
 import Dropdown from './Dropdown.react';
-import {Link} from 'react-router';
-import {connect} from 'react-redux';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {logoutUser} from '../actions/auth';
-import {shell, remote, ipcRenderer} from 'electron';
-import {isAuthenticated} from '../store/helpers';
+import { logoutUser } from '../actions/auth';
+import { shell, remote, ipcRenderer } from 'electron';
+import { isAuthenticated } from '../store/helpers';
 import open from 'open';
 
 
@@ -20,7 +20,7 @@ class Header extends Component {
   static contextTypes = {
     syncAndOpenFolder: React.PropTypes.func
   };
-  
+
   openCampusnet() {
     open('https://www.campusnet.dtu.dk/cnnet/');
   }
@@ -40,34 +40,34 @@ class Header extends Component {
   render() {
     const isAuth = this.props.isAuthenticated;
     return (
-       <div className="header">
-          <div className="header-left">
-            {isAuth ? [
-              <button className="header-action ion-folder" 
-                title="Open folder on your computer"
-                onClick={this.context.syncAndOpenFolder}
-                key="openFolder" />,
-              <div className="header-seperator" key="seperator"/>
-            ] : ''}
-            <button 
-                title="Open CampusNet"
-              className="header-action ion-earth"
-              onClick={this.openCampusnet}/>
-          </div>
-          <div className="header-title">
-            Campusnet
-          </div>
-          <div className="header-right">
-            <Dropdown>
-              <Link to="/" onClick={this.props.logoutUser}>
-                Logout
-              </Link>
-              <button className="link" onClick={this.checkUpdate}>Update</button>
-              <button className="link" onClick={this.feedback}>Feedback</button>
-              <button className="link" onClick={this.quitApp}>Quit</button>
-            </Dropdown>
-          </div>
+      <div className="header">
+        <div className="header-left">
+          {isAuth ? [
+            <button className="header-action ion-folder"
+              title="Open folder on your computer"
+              onClick={this.context.syncAndOpenFolder}
+              key="openFolder" />,
+            <div className="header-seperator" key="seperator" />
+          ] : ''}
+          <button
+            title="Open CampusNet"
+            className="header-action ion-earth"
+            onClick={this.openCampusnet} />
         </div>
+        <div className="header-title">
+          Campusnet
+          </div>
+        <div className="header-right">
+          <Dropdown>
+            <Link to="/" onClick={this.props.logoutUser}>
+              Logout
+              </Link>
+            <button className="link" onClick={this.checkUpdate}>Update</button>
+            <button className="link" onClick={this.feedback}>Feedback</button>
+            <button className="link" onClick={this.quitApp}>Quit</button>
+          </Dropdown>
+        </div>
+      </div>
     );
   }
 }
@@ -78,5 +78,5 @@ export default connect(
     isSyncing: state.get('sync').get('isSyncing'),
     destination: state.get('destination')
   }),
-  (dispatch) => bindActionCreators({logoutUser}, dispatch)
+  (dispatch) => bindActionCreators({ logoutUser }, dispatch)
 )(Header);

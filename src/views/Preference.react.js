@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Component from 'react-pure-render/component';
 import FolderPicker from './FolderPicker.react';
 import SyncIntervalSelect from './SyncIntervalSelect.react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Spinner from './Spinner.react';
 import open from 'open';
 
@@ -24,27 +24,30 @@ class Preference extends Component {
     return (
       <div>
         <div className="container">
-          <FolderPicker chooseFolder={chooseFolder}/>
+          <FolderPicker chooseFolder={chooseFolder} />
           <div className="row">
             <div className="col">
               <label>Sync interval</label>
-              <SyncIntervalSelect/>
+              <SyncIntervalSelect />
             </div>
             <div className="col">
               <label>Include old courses</label>
-              <button 
+              <button
                 className="button button-block button-light"
                 onClick={() => open('https://www.campusnet.dtu.dk/cnnet/archive/archive.aspx')}>
-                  Add courses
+                Add courses
               </button>
             </div>
           </div>
         </div>
         <div className="footer">
-          <button className="button button-block" 
+          <button className="button button-block"
             onClick={syncAndOpenFolder}
             disabled={this.props.isSyncing}>
-              {this.props.isSyncing ? <Spinner/> : "Sync (and open) already!"}
+            {this.props.isSyncing ? <Spinner /> : [
+              <i className="button-icon ion-android-sync" />,
+              <span>Sync and open folder</span>
+            ]}
           </button>
         </div>
       </div>

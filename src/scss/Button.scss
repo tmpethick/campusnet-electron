@@ -20,7 +20,6 @@ input[type='submit'] {
   display: inline-block;
   font-size: 1.1rem;
   font-weight: 700;
-  height: 3.8rem;
   letter-spacing: 0.1rem;
   line-height: 3.8rem;
   padding: 0 3rem;
@@ -87,4 +86,13 @@ input[type='submit'] {
     width: 100%;
   }
 
+  > * {
+    vertical-align: middle;
+  }
+
+}
+
+.button-icon {
+  font-size: 1.5em;
+  margin-right: 5px;
 }
