@@ -9,7 +9,7 @@ This app allows you to sync all your DTU CampusNet files from your menu bar. It 
 You can either go the the [website](http://pethick.dk/campusnet-electron) to download it
 or browse all version on [github releases](https://github.com/tmpethick/campusnet-electron/releases).
 
-## Scripts
+## Development
 
 Check out `package.json` for the possible scripts to run. For a quick overview:
 
@@ -18,6 +18,16 @@ To develop run the following commands in two different sessions:
 ```
 npm run watch
 npm start
+```
+
+## Distribution
+
+Requirements for linux and windows distribution:
+
+```
+brew install gnu-tar graphicsmagick xz
+brew install mono
+brew install wine --without-x11
 ```
 
 ## TODO

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const path = require('path');
 const MenuBar = require('menubar');
@@ -8,7 +8,6 @@ const dialog = electron.dialog;
 const ipcMain = electron.ipcMain;
 const promoteWindowsTrayItems = require('electron-promote-windows-tray-items');
 const startupHandler = require('./startupHandler');
-const open = require('open');
 const createUpdater = require('./updater');
 
 if (process.env.NODE_ENV === 'development')
@@ -26,9 +25,9 @@ const menu = MenuBar({
   height: 250,
   icon: path.join(__dirname, 'logo', 'menuIconTemplate.png'),
   index: `file://${__dirname}/index.html`,
-  'preload-window': true,
+  preloadWindow: true,
   resizable: false,
-  'always-on-top': process.env.NODE_ENV === 'development'
+  alwaysOnTop: process.env.NODE_ENV === 'development'
 });
 
 if (startupHandler(menu.app)) {
@@ -49,27 +48,35 @@ if (shouldQuit) {
 }
 
 // Promote the app to the toolbar itself on windows.
-/*if (process.platform === 'win32') {
-  promoteWindowsTrayItems(function(err) {});
-}*/
+if (process.platform === 'win32') {
+  promoteWindowsTrayItems(function(err) { });
+}
 
 menu.on('ready', () => {
   menu.tray.setToolTip('CampusNet Sync');
 });
 
-ipcMain.on('show-menubar', function () {
+ipcMain.on('show-menubar', function() {
   menu.showWindow();
 });
 
 
+// On Mac, work around a bug in auto-launch where it opens a Terminal window
+// https://github.com/feross/webtorrent-desktop/pull/923
+const appPath = process.platform === 'darwin'
+  ? menu.app.getPath('exe').replace(/\.app\/Content.*/, '.app')
+  : undefined; // Use the default
+
 // Launch on boot
-var appLauncher = new AutoLaunch({
-  name: 'CampusNetSync'
+const appLauncher = new AutoLaunch({
+  name: 'CampusNetSync',
+  path: appPath,
+  isHidden: true
 });
 
-appLauncher.isEnabled().then(function (enabled) {
+appLauncher.isEnabled().then(function(enabled) {
   if (enabled) return;
-  return appLauncher.enable()
+  return appLauncher.enable();
 });
 
 // Updater
@@ -83,13 +90,15 @@ ipcMain.on('check-update', event => {
       if (newUpdate) {
         try {
           updater.download();
-        } catch (e) {
+        }
+ catch (e) {
           console.log('Already checking for updates..');
         }
       }
       event.sender.send('check-update-response', newUpdate);
     });
-  } catch (e) {
+  }
+ catch (e) {
     console.log('Probably already checking for update');
   }
 });
