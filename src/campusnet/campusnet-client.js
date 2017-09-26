@@ -11,7 +11,7 @@ import CampusError, {VALIDATION_ERROR, UNKNOWN_ERROR} from './errors';
 fetch.Promise = Bluebird;
 
 const AUTH_URL = 'https://auth.dtu.dk/dtu/mobilapp.jsp';
-const BASE_URL = 'https://www.campusnet.dtu.dk/data/CurrentUser';
+const BASE_URL = 'https://cn.inside.dtu.dk/data/CurrentUser';
 const appName = 'campusnet-electron';
 const appToken = 'b6d080a8-d6a1-4355-bc79-fc45657cb8e1';
 

@@ -5,16 +5,15 @@ import Promise from 'bluebird';
 import path from 'path';
 
 describe('CampusNet Client', function() {
-/*
-  it('should login fetcher', function(done) {
-    CNClient.login('s144448', 'wBA49deM')
-      .then((PApassword) => new CNClient('s144448', PApassword))
-      .then((client) => download(client, path.join(__dirname, 'downloads')))
-      .then(() => {
-        done()
-      });
-  });
-*/
+
+  // it('should login fetcher', function(done) {
+  //   CNClient.login('s144448', '...')
+  //     .then((PApassword) => new CNClient('s144448', PApassword))
+  //     .then((client) => download(client, path.join(__dirname, 'downloads')))
+  //     .then(() => {
+  //       done()
+  //     });
+  // });
 
   it('should throw error on wrong PAPassword downloading all files', function(done) {
     const client = new CNClient('s144448', 'bla');
@@ -36,28 +35,26 @@ describe('CampusNet Client', function() {
     }).catch((err) => done())
   });
 
-/*
-  it('should download one file', function(done) {
-    CNClient.login('s144448', 'wBA49deM')
-      .then((PApassword) => new CNClient('s144448', PApassword))
-      .then((client) => {
-        return downloadFile(
-          client, 
-          path.join(__dirname, 'downloads'), 
-          {id: "495445", name: "AlgorithmDesign.pdf"}, 
-          {
-            id: "3902993",
-            path: ["Materials", "AlgorithmDesign.pdf"],
-            modifiedDate: new Date(10)
-          }
-        );
-      })
-      .catch((err) => console.log(err))
-      .then(() => {
-        done();
-      })
-  });
-*/
+  // it('should download one file', function(done) {
+  //   CNClient.login('s144448', '...')
+  //     .then((PApassword) => new CNClient('s144448', PApassword))
+  //     .then((client) => {
+  //       return downloadFile(
+  //         client, 
+  //         path.join(__dirname, 'downloads'), 
+  //         {id: "495445", name: "AlgorithmDesign.pdf"}, 
+  //         {
+  //           id: "3902993",
+  //           path: ["Materials", "AlgorithmDesign.pdf"],
+  //           modifiedDate: new Date(10)
+  //         }
+  //       );
+  //     })
+  //     .catch((err) => done(err))
+  //     .then(() => {
+  //       done();
+  //     })
+  // });
 
   it('should newest', function(done) {
     newestVersionExists(
