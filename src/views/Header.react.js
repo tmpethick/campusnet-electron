@@ -55,7 +55,7 @@ class Header extends Component {
             onClick={this.openCampusnet} />
         </div>
         <div className="header-title">
-          Campusnet
+          Inside
           </div>
         <div className="header-right">
           <Dropdown>
