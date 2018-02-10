@@ -1,4 +1,5 @@
 import React from 'react';
+import electron from 'electron';
 import Component from 'react-pure-render/component';
 
 export default class Dropdown extends Component {
@@ -21,6 +22,11 @@ export default class Dropdown extends Component {
           <i className="ion-gear-a"></i>
         </button>
         <div className={'dropdown-list' + (isOpen ? ' open' : '')}>
+          <div key="version-number" className="dropdown-list-item">
+            <span className="info">
+                v{electron.remote.app.getVersion()}
+            </span>
+          </div>
           {this.props.children.map((child, i) => (
             <div key={i} className="dropdown-list-item">
               {child}
