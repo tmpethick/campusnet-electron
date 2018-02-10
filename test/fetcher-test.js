@@ -39,21 +39,21 @@ describe('CampusNet Client', function() {
   //   CNClient.login('s144448', '...')
   //     .then((PApassword) => new CNClient('s144448', PApassword))
   //     .then((client) => {
-  //       return downloadFile(
+  //       return downloadFile({
   //         client, 
-  //         path.join(__dirname, 'downloads'), 
-  //         {id: "495445", name: "AlgorithmDesign.pdf"}, 
-  //         {
+  //         rootPath: path.join(__dirname, 'downloads'), 
+  //         element: {id: "495445", name: "AlgorithmDesign.pdf"}, 
+  //         file: {
   //           id: "3902993",
   //           path: ["Materials", "AlgorithmDesign.pdf"],
   //           modifiedDate: new Date(10)
   //         }
-  //       );
+  //       });
   //     })
-  //     .catch((err) => done(err))
   //     .then(() => {
   //       done();
   //     })
+  //     .catch((err) => done(err));
   // });
 
   it('should newest', function(done) {
