@@ -6,7 +6,6 @@ const AutoLaunch = require('auto-launch');
 const electron = require('electron');
 const dialog = electron.dialog;
 const ipcMain = electron.ipcMain;
-const promoteWindowsTrayItems = require('electron-promote-windows-tray-items');
 const startupHandler = require('./startupHandler');
 const createUpdater = require('./updater');
 
@@ -45,11 +44,6 @@ const shouldQuit = menu.app.makeSingleInstance((commandLine, workingDirectory) =
 if (shouldQuit) {
   menu.app.quit();
   return;
-}
-
-// Promote the app to the toolbar itself on windows.
-if (process.platform === 'win32') {
-  promoteWindowsTrayItems(function(err) { });
 }
 
 menu.on('ready', () => {
