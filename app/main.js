@@ -9,10 +9,10 @@ const ipcMain = electron.ipcMain;
 const startupHandler = require('./startupHandler');
 
 const autoUpdater = require("electron-updater").autoUpdater
-// autoUpdater.logger = require("electron-log");
-// autoUpdater.logger.transports.file.level = "info";
+autoUpdater.logger = require("electron-log");
+autoUpdater.logger.transports.file.level = "info";
 
-// if (process.env.NODE_ENV === 'development')
+if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
 
 electron.crashReporter.start({
