@@ -3,13 +3,16 @@
 const path = require('path');
 const MenuBar = require('menubar');
 const AutoLaunch = require('auto-launch');
-const autoUpdater = require("electron-updater").autoUpdater
 const electron = require('electron');
 const dialog = electron.dialog;
 const ipcMain = electron.ipcMain;
 const startupHandler = require('./startupHandler');
 
-if (process.env.NODE_ENV === 'development')
+const autoUpdater = require("electron-updater").autoUpdater
+// autoUpdater.logger = require("electron-log");
+// autoUpdater.logger.transports.file.level = "info";
+
+// if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
 
 electron.crashReporter.start({
@@ -81,7 +84,7 @@ ipcMain.on('check-update', event => {
   // `status` returns true if there is a new update available
   autoUpdater.checkForUpdatesAndNotify()
     .then(result => {
-      if (result == null)
-        event.sender.send('check-update-response', false);
+      const isUpdating = result.cancellationToken;
+      event.sender.send('check-update-response', isUpdating);
     });
 });
