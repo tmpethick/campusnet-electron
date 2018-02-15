@@ -14,7 +14,8 @@
     "email": "tmpethick@gmail.com",
     "url": "pethick.dk"
   },
-  "electronVersion": "1.6.16",
+  "engines" : { "node" : ">=7.10.1" },
+  "electronVersion": "1.8.2",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "NODE_ENV=development electron ./app",
@@ -54,7 +55,14 @@
           "type": "file"
         }
       ]
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "tmpethick",
+        "repo": "campusnet-electron"
+      }
+    ]
   },
   "keywords": [
     "campusnet",
@@ -77,8 +85,8 @@
     "babel-preset-stage-2": "^6.3.13",
     "chai": "^3.5.0",
     "css-loader": "^0.21.0",
-    "electron": "1.6.16",
-    "electron-builder": "^19.56.0",
+    "electron": "1.8.2",
+    "electron-builder": "^20.0.4",
     "eslint": "^3.15.0",
     "eslint-plugin-react": "^6.10.0",
     "mocha": "^2.4.5",

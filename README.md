@@ -20,6 +20,10 @@ npm run watch
 npm start
 ```
 
+## Dev Tips
+
+* To test the update flow: Run `yarn dist` with version one below the current version. This will trigger the update flow since a release exists with a higher version number.
+
 ## Distribution
 
 Requirements for linux and windows distribution:
