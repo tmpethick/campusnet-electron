@@ -1,7 +1,7 @@
 {
   "name": "campusnet-electron",
   "productName": "CampusNetSync",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Sync CampusNet files to your computer",
   "license": "MIT",
   "repository": {
