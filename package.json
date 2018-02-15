@@ -1,7 +1,7 @@
 {
   "name": "campusnet-electron",
   "productName": "CampusNetSync",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Sync CampusNet files to your computer",
   "license": "MIT",
   "repository": {
@@ -22,9 +22,9 @@
     "test": "mocha --watch",
     "test-debug": "node --harmony $(which bugger) ./node_modules/mocha/bin/_mocha --watch",
     "compile": "NODE_ENV=production webpack -p",
-    "pack": "source .config && npm run compile && electron-builder -mwl --ia32 --dir",
-    "dist": "source .config && npm run compile && DEBUG=electron-builder electron-builder -mwl --ia32",
-    "release": "source .config && npm run compile && electron-builder -mwl --ia32 --publish always",
+    "pack": "source .config && npm run compile && electron-builder -mw --ia32 --dir",
+    "dist": "source .config && npm run compile && DEBUG=electron-builder electron-builder -mw --ia32",
+    "release": "source .config && npm run compile && electron-builder -mw --ia32 --publish always",
     "publish-gh-pages": "git subtree push --prefix gh-pages/build origin gh-pages"
   },
   "build": {
