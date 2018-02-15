@@ -3,11 +3,11 @@
 const path = require('path');
 const MenuBar = require('menubar');
 const AutoLaunch = require('auto-launch');
+const autoUpdater = require("electron-updater").autoUpdater
 const electron = require('electron');
 const dialog = electron.dialog;
 const ipcMain = electron.ipcMain;
 const startupHandler = require('./startupHandler');
-const createUpdater = require('./updater');
 
 if (process.env.NODE_ENV === 'development')
   require('electron-debug')();
@@ -48,6 +48,9 @@ if (shouldQuit) {
 
 menu.on('ready', () => {
   menu.tray.setToolTip('CampusNet Sync');
+  
+  // Updater
+  autoUpdater.checkForUpdatesAndNotify();
 });
 
 ipcMain.on('show-menubar', function() {
@@ -74,25 +77,11 @@ appLauncher.isEnabled().then(function(enabled) {
 });
 
 // Updater
-const updater = createUpdater(menu.app);
-
 ipcMain.on('check-update', event => {
   // `status` returns true if there is a new update available
-  try {
-    updater.check((err, status) => {
-      const newUpdate = !err && status;
-      if (newUpdate) {
-        try {
-          updater.download();
-        }
- catch (e) {
-          console.log('Already checking for updates..');
-        }
-      }
-      event.sender.send('check-update-response', newUpdate);
+  autoUpdater.checkForUpdatesAndNotify()
+    .then(result => {
+      if (result == null)
+        event.sender.send('check-update-response', false);
     });
-  }
- catch (e) {
-    console.log('Probably already checking for update');
-  }
 });

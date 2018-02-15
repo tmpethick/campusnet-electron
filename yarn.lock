@@ -26,6 +26,10 @@
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/7zip-bin/-/7zip-bin-3.0.0.tgz#17416dc542f41511b26a9667b92847d75ef150fe"
 
+"@types/node@^7.0.18":
+  version "7.0.55"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.55.tgz#7bb6215ff9425a1d714106be9f0d3e0e28829288"
+
 Base64@~0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/Base64/-/Base64-0.2.1.tgz#ba3a4230708e186705065e66babdd4c35cf60028"
@@ -1161,7 +1165,7 @@ builder-util-runtime@4.0.4:
     fs-extra-p "^4.5.0"
     sax "^1.2.4"
 
-builder-util-runtime@^4.0.4, builder-util-runtime@^4.0.5:
+builder-util-runtime@^4.0.4, builder-util-runtime@^4.0.5, builder-util-runtime@~4.0.3:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-4.0.5.tgz#5340cf9886b9283ea6e5b20dc09b5e3e461aef62"
   dependencies:
@@ -1968,14 +1972,6 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-edge-cs@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/edge-cs/-/edge-cs-1.0.0.tgz#d99bef68b5fdd7c89139fe7bc77811f0c3faa60e"
-
-edge-cs@1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/edge-cs/-/edge-cs-1.2.1.tgz#bd1a9ecdb94ef0ed40c894582046749e57045e5a"
-
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -2066,26 +2062,16 @@ electron-download@^3.0.1:
     semver "^5.3.0"
     sumchecker "^1.2.0"
 
-electron-edge-js@^8.3.0:
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/electron-edge-js/-/electron-edge-js-8.3.0.tgz#44d06511ba254b61db89e3eb709a09601141ef92"
-  dependencies:
-    edge-cs "1.2.1"
-    nan "^2.8.0"
-
-electron-edge@^5.0.1-pre:
-  version "5.9.2"
-  resolved "https://registry.yarnpkg.com/electron-edge/-/electron-edge-5.9.2.tgz#8ea650ecb741679d31b853ccb79a5c890a85f7c0"
-  dependencies:
-    edge-cs "1.0.0"
-    nan "^2.0.9"
-
 electron-gh-releases@^2.0.3:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/electron-gh-releases/-/electron-gh-releases-2.0.4.tgz#198c07a0970fb8e80fcc67bd0b4198a010923dc3"
   dependencies:
     got "^5.1.0"
     semver "^5.1.0"
+
+electron-is-dev@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-0.3.0.tgz#14e6fda5c68e9e4ecbeff9ccf037cbd7c05c5afe"
 
 electron-localshortcut@^0.6.0:
   version "0.6.1"
@@ -2106,18 +2092,6 @@ electron-positioner@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/electron-positioner/-/electron-positioner-3.0.0.tgz#1a3b75c9cc1e29dd37c663b23fd876d4ffab9996"
 
-electron-promote-windows-tray-items@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/electron-promote-windows-tray-items/-/electron-promote-windows-tray-items-1.0.1.tgz#fc675cc37532daaf3dad96cdadca5d4a9362a2eb"
-  dependencies:
-    electron-edge "^5.0.1-pre"
-
-"electron-promote-windows-tray-items@https://github.com/tmpethick/electron-promote-windows-tray-items.git":
-  version "1.0.1"
-  resolved "https://github.com/tmpethick/electron-promote-windows-tray-items.git#fbf64837482dbf1328b76db32822bd6d6d135b90"
-  dependencies:
-    electron-edge-js "^8.3.0"
-
 electron-publish@19.56.0:
   version "19.56.0"
   resolved "https://registry.yarnpkg.com/electron-publish/-/electron-publish-19.56.0.tgz#1a0446e69b3085a905c0abdf16125c1c97d108d9"
@@ -2133,10 +2107,25 @@ electron-to-chromium@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.2.2.tgz#e41bc9488c88e3cfa1e94bde28e8420d7d47c47c"
 
-electron@1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-1.6.2.tgz#b0ccd7703f86d09c4d2a7273455c3f993f158994"
+electron-updater@^2.20.1:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-2.20.1.tgz#3d2714a3e472fbf198f6053daf8fd12209101aa2"
   dependencies:
+    bluebird-lst "^1.0.5"
+    builder-util-runtime "~4.0.3"
+    electron-is-dev "^0.3.0"
+    fs-extra-p "^4.5.0"
+    js-yaml "^3.10.0"
+    lazy-val "^1.0.3"
+    lodash.isequal "^4.5.0"
+    semver "^5.5.0"
+    source-map-support "^0.5.2"
+
+electron@1.6.16:
+  version "1.6.16"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-1.6.16.tgz#f37a8f49cc2625059c99eb266dee4dffe0917b63"
+  dependencies:
+    "@types/node" "^7.0.18"
     electron-download "^3.0.1"
     extract-zip "^1.0.3"
 
@@ -3663,6 +3652,10 @@ lodash.flow@^3.3.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/lodash.flow/-/lodash.flow-3.5.0.tgz#87bf40292b8cf83e4e8ce1a3ae4209e20071675a"
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+
 lodash.memoize@^4.1.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
@@ -3938,10 +3931,6 @@ mv@^2.1.1:
     mkdirp "~0.5.1"
     ncp "~2.0.0"
     rimraf "~2.4.0"
-
-nan@^2.0.9, nan@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.8.0.tgz#ed715f3fe9de02b57a5e6252d90a96675e1f085a"
 
 nan@^2.3.0, nan@^2.3.2:
   version "2.5.1"
@@ -5436,7 +5425,7 @@ source-map-support@^0.4.2:
   dependencies:
     source-map "^0.5.3"
 
-source-map-support@^0.5.3:
+source-map-support@^0.5.2, source-map-support@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.3.tgz#2b3d5fff298cfa4d1afd7d4352d569e9a0158e76"
   dependencies:
